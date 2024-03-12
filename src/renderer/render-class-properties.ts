@@ -1,6 +1,6 @@
-import { GdFile, GdProperty } from "../gd-file";
+import { GdFile, GdProperty } from '../gd-file'
 
-export function renderGdProperties(gdFile: GdFile): string[] {
+export function renderClassProperties(gdFile: GdFile): string[] {
   return gdFile.properties.map(renderGdProperty);
 }
 

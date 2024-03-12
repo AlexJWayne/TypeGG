@@ -1,27 +1,44 @@
-import { processTsCode } from "./transpile";
-import { describe, expect, it } from "vitest";
+import { describe } from 'vitest'
+
+import { itTranspiles } from '../spec/it-transpiles'
 
 describe("processTsCode", () => {
-  describe("class declaration", () => {
-    it("should use the class name", () => {
-      const actual = processTsCode(`
-        export default class Foo {}
-      `);
-      expect(actual).toMatchGd(`
-        class_name Foo
-      `);
-    });
-  });
+  itTranspiles(
+    "class name",
+    /* ts */ `
+      export default class Foo {}
+    `,
+    `
+      class_name Foo
+    `,
+  );
 
-  it("should create an instance property", () => {
-    const actual = processTsCode(`
+  itTranspiles(
+    "instance property",
+    /* ts */ `
       export default class Foo {
         bar: string = "baz";
       }
-    `);
-    expect(actual).toMatchGd(`
+    `,
+    `
       class_name Foo
       var bar: String = "baz"
-    `);
+    `,
+  );
+
+  describe("methods", () => {
+    itTranspiles(
+      "instance method with no body",
+      /* ts */ `
+        export default class Foo {
+          bar() {}
+        }
+      `,
+      `
+        class_name Foo
+        func bar() -> void:
+            pass
+      `,
+    );
   });
 });

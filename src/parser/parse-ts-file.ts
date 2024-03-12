@@ -1,8 +1,9 @@
-import { GdFile } from "../gd-file";
+import { parseClassName } from './parse-class-name'
+import { parseClassProperties } from './parse-class-properties'
+import { parseMethods } from './parse-method'
+import { ClassDeclaration, Project, SourceFile } from 'ts-morph'
 
-import { parseClassName } from "./parse-class-name";
-import { parseClassProperties } from "./parse-class-properties";
-import { ClassDeclaration, Project, SourceFile } from "ts-morph";
+import { GdFile } from '../gd-file'
 
 export function parseTsFile(tsCode: string): GdFile {
   // TEMP for testing
@@ -12,9 +13,15 @@ export function parseTsFile(tsCode: string): GdFile {
 
   const fileClass = findFileClass(file);
 
+  console.log(
+    "parseMethods(fileClass.getMethods())",
+    parseMethods(fileClass.getMethods()),
+  );
+
   return {
     className: parseClassName(fileClass),
     properties: parseClassProperties(fileClass.getProperties()),
+    methods: parseMethods(fileClass.getMethods()),
   };
 }
 
