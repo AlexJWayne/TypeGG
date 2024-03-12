@@ -1,18 +1,16 @@
-import { processTsCode } from "./process-ts-code";
+import { processTsCode } from "./transpile";
 import { describe, expect, it } from "vitest";
 
 describe("processTsCode", () => {
-  it("should use the class name", () => {
-    const actual = processTsCode(`
-      export default class Foo {
-        bar() {
-          return 42;
-        }
-      }
-    `);
-    expect(actual).toMatchGd(`
-      class_name Foo
-    `);
+  describe("class declaration", () => {
+    it("should use the class name", () => {
+      const actual = processTsCode(`
+        export default class Foo {}
+      `);
+      expect(actual).toMatchGd(`
+        class_name Foo
+      `);
+    });
   });
 
   it("should create an instance property", () => {
