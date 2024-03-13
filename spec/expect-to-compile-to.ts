@@ -18,8 +18,8 @@ expect.extend({
     return {
       pass: expectedFinal === receivedFinal,
       message: () => `expected${this.isNot ? " not" : ""} to compile to`,
-      expected: expectedGd,
-      actual: receivedGd,
+      expected: expectedFinal,
+      actual: receivedFinal,
     };
   },
 });

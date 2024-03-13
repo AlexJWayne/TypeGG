@@ -1,21 +1,18 @@
+import { parseIfStatement } from './parse-if-statement'
 import { parseReturnStatement } from './parse-return-statement'
-import { Statement, SyntaxKind } from 'ts-morph'
+import { Node, SyntaxKind } from 'ts-morph'
 
-import { indent } from '../util/indent'
-
-export function parseStatements(
-  statements: Statement[],
-  indentLevel: number = 0,
-): string[] {
-  indentLevel += 1;
-
+export function parseStatements(statements: Node[]): string[] {
   if (statements.length === 0) {
-    return indent(["pass"], indentLevel);
+    return ["pass"];
   }
 
   return statements.flatMap((statement) => {
-    if (statement.isKind(SyntaxKind.ReturnStatement)) {
-      return parseReturnStatement(statement, indentLevel);
+    switch (true) {
+      case statement.isKind(SyntaxKind.IfStatement):
+        return parseIfStatement(statement);
+      case statement.isKind(SyntaxKind.ReturnStatement):
+        return parseReturnStatement(statement);
     }
 
     console.error("Unknown statement kind", statement.getKindName());

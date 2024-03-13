@@ -1,1 +1,1 @@
-import "./to-match-gd";
+import './expect-to-compile-to'

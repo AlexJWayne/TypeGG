@@ -84,5 +84,22 @@ describe("processTsCode", () => {
     });
   });
 
-  // describe("statements", () => {});
+  describe("statements", () => {
+    test("if statement", () => {
+      expect(`
+        export default class Foo {
+          bar(): void {
+            if (true) {
+              return;
+            }
+          }
+        }
+      `).toCompileTo(`
+        class_name Foo
+        func bar() -> void:
+            if true:
+                return
+      `);
+    });
+  });
 });
