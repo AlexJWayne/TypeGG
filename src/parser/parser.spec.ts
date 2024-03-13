@@ -84,5 +84,19 @@ describe("processTsCode", () => {
             return "baz"
       `,
     );
+
+    itTranspiles(
+      "static method",
+      /* ts */ `
+        export default class Foo {
+          static bar() {}
+        }
+      `,
+      `
+        class_name Foo
+        static func bar() -> void:
+            pass
+      `,
+    );
   });
 });
