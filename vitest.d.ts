@@ -1,7 +1,7 @@
-import type { Assertion, AsymmetricMatchersContaining } from "vitest";
+import type { Assertion, AsymmetricMatchersContaining } from 'vitest'
 
 interface CustomMatchers<R = unknown> {
-  toMatchGd: (expected: string) => R;
+  toCompileTo: (expectedGd: string) => R;
 }
 
 declare module "vitest" {

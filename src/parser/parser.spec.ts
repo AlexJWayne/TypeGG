@@ -1,102 +1,88 @@
-import { describe } from 'vitest'
-
-import { itTranspiles } from '../../spec/it-transpiles'
+import { describe, expect, test } from 'vitest'
 
 describe("processTsCode", () => {
-  itTranspiles(
-    "class name",
-    /* ts */ `
+  test("class name", () => {
+    expect(`
       export default class Foo {}
-    `,
-    `
+    `).toCompileTo(`
       class_name Foo
-    `,
-  );
+    `);
+  });
 
-  itTranspiles(
-    "instance property",
-    /* ts */ `
+  test("instance property", () => {
+    expect(`
       export default class Foo {
         bar: string = "baz";
       }
-    `,
-    `
+    `).toCompileTo(`
       class_name Foo
       var bar: String = "baz"
-    `,
-  );
+    `);
+  });
 
   describe("methods", () => {
-    itTranspiles(
-      "empty method",
-      /* ts */ `
+    test("empty method", () => {
+      expect(`
         export default class Foo {
           bar() {}
         }
-      `,
-      `
+      `).toCompileTo(`
         class_name Foo
         func bar() -> void:
             pass
-      `,
-    );
+      `);
+    });
 
-    itTranspiles(
-      "parameters",
-      /* ts */ `
+    test("parameters", () => {
+      expect(`
         export default class Foo {
           bar(isBaz: boolean, myStr: string) {}
         }
-      `,
-      `
+      `).toCompileTo(`
         class_name Foo
         func bar(isBaz: bool, myStr: String) -> void:
             pass
-      `,
-    );
+      `);
+    });
 
-    itTranspiles(
-      "explicit return type",
-      /* ts */ `
+    test("explicit return type", () => {
+      expect(`
         export default class Foo {
           bar(): string {}
         }
-      `,
-      `
+      `).toCompileTo(`
         class_name Foo
         func bar() -> String:
             pass
-      `,
-    );
+      `);
+    });
 
-    itTranspiles(
-      "implicit return type",
-      /* ts */ `
+    test("implicit return type", () => {
+      expect(`
         export default class Foo {
           bar() {
             return "baz";
           }
         }
-      `,
-      `
+      `).toCompileTo(`
         class_name Foo
         func bar() -> String:
             return "baz"
-      `,
-    );
+      `);
+    });
 
-    itTranspiles(
-      "static method",
-      /* ts */ `
+    test("static method", () => {
+      expect(`
         export default class Foo {
           static bar() {}
         }
-      `,
-      `
+      `).toCompileTo(`
         class_name Foo
         static func bar() -> void:
             pass
-      `,
-    );
+      `);
+    });
   });
+
+  // describe("statements", () => {});
 });

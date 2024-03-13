@@ -1,19 +1,25 @@
-import { expect } from "vitest";
+import { expect } from 'vitest'
+
+import { parseTsFile } from '../src/parser/parser'
 
 expect.extend({
   /**
-   * Reindents the expected value to remove indentation that all lines share,
-   * and removes all empty lines from recieved and expected.
+   * Compiles the typescript to GD script and re-indents the expected value
+   * to remove indentation that all lines share. Also removes all empty lines
+   * from recieved and expected. This should help expected scripts to look nice
+   * in the test file.
    */
-  toMatchGd(received: string, expected: string) {
-    const receivedFinal = removeEmptyLines(received.trim());
-    const expectedFinal = removeEmptyLines(trimFromEachLineStart(expected));
+  toCompileTo(receivedTs: string, expectedGd: string) {
+    const receivedGd = parseTsFile(receivedTs);
+    const receivedFinal = removeEmptyLines(receivedGd.trim());
+
+    const expectedFinal = removeEmptyLines(trimFromEachLineStart(expectedGd));
 
     return {
       pass: expectedFinal === receivedFinal,
-      message: () => `expected${this.isNot ? " not" : ""} to match gd script`,
-      expected: expectedFinal,
-      actual: receivedFinal,
+      message: () => `expected${this.isNot ? " not" : ""} to compile to`,
+      expected: expectedGd,
+      actual: receivedGd,
     };
   },
 });
