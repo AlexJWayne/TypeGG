@@ -1,4 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["build", "spec", "**/*.spec.ts"]
+  "include": ["src", "vitest.d.ts"],
+  "exclude": ["dist", "spec", "**/*.spec.ts"]
 }

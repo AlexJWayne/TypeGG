@@ -3,8 +3,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "build": "npm run clean && tsc --project tsconfig.build.json",
-    "clean": "rm -rf ./build",
+    "build": "npm run clean && tsc --noEmit && tsc --project tsconfig.build.json",
+    "clean": "rm -rf ./dist",
     "format": "prettier --write ."
   },
   "type": "module",

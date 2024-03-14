@@ -5,3 +5,7 @@
 - Escape GD
 - GD Crasftman
 - Kestrel GD
+- Godocity
+- GodoTS
+- GodooTS
+- TypeGG
