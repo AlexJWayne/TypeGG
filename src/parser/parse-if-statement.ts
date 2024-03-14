@@ -5,15 +5,25 @@ import { indent } from '../util/indent'
 
 export function parseIfStatement(statement: IfStatement): string[] {
   const condition = statement.getExpression().getText();
-  const statementsNodes =
+  const thenNodes =
     statement.getThenStatement().getChildSyntaxList()?.getChildren() ?? [];
 
-  const statements = parseStatements(statementsNodes);
+  const elseStatement = statement.getElseStatement();
+  const elseNodes = elseStatement?.getChildSyntaxList()?.getChildren() ?? [];
 
-  return [
+  const ifLines = [
     `if ${condition}:`, //
-    ...indent(statements),
+    ...indent(parseStatements(thenNodes)),
   ];
+
+  const elseLines = elseStatement
+    ? [
+        "else:", //
+        ...indent(parseStatements(elseNodes)),
+      ]
+    : [];
+
+  return [...ifLines, ...elseLines];
 }
 
 if (import.meta.vitest) {
@@ -50,6 +60,47 @@ if (import.meta.vitest) {
           if true:
               return "bar"
           return "baz"
+    `);
+  });
+
+  test("nested", () => {
+    expect(`
+      export default class Foo {
+        bar(): void {
+          if (true) {
+            if (false) {
+              return;
+            }
+          }
+        }
+      }
+    `).toCompileTo(`
+      class_name Foo
+      func bar() -> void:
+          if true:
+              if false:
+                  return
+    `);
+  });
+
+  test("else", () => {
+    expect(`
+      export default class Foo {
+        foo(): string {
+          if (true) {
+            return "foo";
+          } else {
+            return "bar";
+          }
+        }
+      }
+    `).toCompileTo(`
+      class_name Foo
+      func foo() -> String:
+          if true:
+              return "foo"
+          else:
+              return "bar"
     `);
   });
 }
