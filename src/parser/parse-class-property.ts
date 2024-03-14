@@ -15,3 +15,18 @@ export function parseClassProperty(
   }
   return [output];
 }
+
+if (import.meta.vitest) {
+  const { expect, test } = import.meta.vitest;
+
+  test("instance property", () => {
+    expect(`
+    export default class Foo {
+      bar: string = "baz";
+    }
+  `).toCompileTo(`
+    class_name Foo
+    var bar: String = "baz"
+  `);
+  });
+}

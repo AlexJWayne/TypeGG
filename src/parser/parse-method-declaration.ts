@@ -23,3 +23,57 @@ export function parseMethodDeclaration(
 
   return [methodDeclaration];
 }
+
+if (import.meta.vitest) {
+  const { expect, test } = import.meta.vitest;
+
+  test("empty method", () => {
+    expect(`
+      export default class Foo {
+        bar() {}
+      }
+    `).toCompileTo(`
+      class_name Foo
+      func bar() -> void:
+          pass
+    `);
+  });
+
+  test("static method", () => {
+    expect(`
+      export default class Foo {
+        static bar() {}
+      }
+    `).toCompileTo(`
+      class_name Foo
+      static func bar() -> void:
+          pass
+    `);
+  });
+
+  test("explicit return type", () => {
+    expect(`
+      export default class Foo {
+        bar(): string {}
+      }
+    `).toCompileTo(`
+      class_name Foo
+      func bar() -> String:
+          pass
+    `);
+  });
+
+  test("implicit return type", () => {
+    expect(`
+      export default class Foo {
+        bar() {
+          return "baz";
+        }
+      }
+    `).toCompileTo(`
+      class_name Foo
+      func bar() -> String:
+          return "baz"
+    `);
+  });
+}
