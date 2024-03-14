@@ -1,8 +1,8 @@
 import { ClassDeclaration } from 'ts-morph'
 
-export function parseClass(classNode: ClassDeclaration): string[] {
+export function parseClass(classNode: ClassDeclaration): string {
   const className = classNode.getName();
-  return [`class_name ${className}`];
+  return `class_name ${className}\n`;
 }
 
 if (import.meta.vitest) {

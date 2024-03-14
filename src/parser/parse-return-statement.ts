@@ -1,15 +1,13 @@
 import { ReturnStatement } from 'ts-morph'
 
-export function parseReturnStatement(
-  returnStatement: ReturnStatement,
-): string[] {
+export function parseReturnStatement(returnStatement: ReturnStatement): string {
   const expression = returnStatement.getExpression()?.getText();
 
   const returnLine = ["return", expression ? `${expression}` : ""]
     .filter((token) => token)
     .join(" ");
 
-  return [returnLine];
+  return `${returnLine}\n`;
 }
 
 if (import.meta.vitest) {

@@ -9,14 +9,15 @@ export function parseTsFile(tsCode: string): string {
 
   const fileClass = getFileClass(file);
 
-  output.push(...parseClass(fileClass));
+  output.push(parseClass(fileClass));
 
+  // TODO: move the rest of this to parseClass() ?
   for (const property of fileClass.getProperties()) {
-    output.push(...parseClassProperty(property));
+    output.push(parseClassProperty(property));
   }
 
   for (const method of fileClass.getMethods()) {
-    output.push(...parseMethod(method));
+    output.push(parseMethod(method));
   }
 
   return output.join("\n");

@@ -3,7 +3,7 @@ import { IfStatement } from 'ts-morph'
 
 import { indent } from '../util/indent'
 
-export function parseIfStatement(statement: IfStatement): string[] {
+export function parseIfStatement(statement: IfStatement): string {
   const condition = statement.getExpression().getText();
   const thenNodes =
     statement.getThenStatement().getChildSyntaxList()?.getChildren() ?? [];
@@ -12,18 +12,22 @@ export function parseIfStatement(statement: IfStatement): string[] {
   const elseNodes = elseStatement?.getChildSyntaxList()?.getChildren() ?? [];
 
   const ifLines = [
-    `if ${condition}:`, //
-    ...indent(parseStatements(thenNodes)),
+    `if ${condition}:\n`, //
+    indent(parseStatements(thenNodes)),
   ];
+  console.log(ifLines);
 
   const elseLines = elseStatement
     ? [
-        "else:", //
-        ...indent(parseStatements(elseNodes)),
+        "else:\n", //
+        indent(parseStatements(elseNodes)),
       ]
     : [];
+  console.log(elseLines);
 
-  return [...ifLines, ...elseLines];
+  console.log([...ifLines, ...elseLines].join(""));
+
+  return [...ifLines, ...elseLines].join("");
 }
 
 if (import.meta.vitest) {

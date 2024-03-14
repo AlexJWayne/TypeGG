@@ -3,9 +3,7 @@ import { MethodDeclaration } from 'ts-morph'
 
 import { getGdType } from '../util/get-gd-type'
 
-export function parseMethodDeclaration(
-  methodNode: MethodDeclaration,
-): string[] {
+export function parseMethodDeclaration(methodNode: MethodDeclaration): string {
   const methodName = methodNode.getName();
   const methodReturnType = getGdType(methodNode.getReturnType());
 
@@ -21,7 +19,7 @@ export function parseMethodDeclaration(
     .filter((token) => token)
     .join(" ");
 
-  return [methodDeclaration];
+  return `${methodDeclaration}\n`;
 }
 
 if (import.meta.vitest) {

@@ -2,9 +2,7 @@ import { PropertyDeclaration } from 'ts-morph'
 
 import { getGdType } from '../util/get-gd-type'
 
-export function parseClassProperty(
-  propertyNode: PropertyDeclaration,
-): string[] {
+export function parseClassProperty(propertyNode: PropertyDeclaration): string {
   const propertyName = propertyNode.getName();
   const propertyType = getGdType(propertyNode.getType());
   const propertyInitial = propertyNode.getInitializer()?.getText();
@@ -13,7 +11,7 @@ export function parseClassProperty(
   if (propertyInitial) {
     output += ` = ${propertyInitial}`;
   }
-  return [output];
+  return `${output}\n`;
 }
 
 if (import.meta.vitest) {
@@ -21,12 +19,12 @@ if (import.meta.vitest) {
 
   test("instance property", () => {
     expect(`
-    export default class Foo {
-      bar: string = "baz";
-    }
-  `).toCompileTo(`
-    class_name Foo
-    var bar: String = "baz"
-  `);
+      export default class Foo {
+        bar: string = "baz";
+      }
+    `).toCompileTo(`
+      class_name Foo
+      var bar: String = "baz"
+    `);
   });
 }
