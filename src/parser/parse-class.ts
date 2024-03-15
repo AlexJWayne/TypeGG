@@ -1,8 +1,10 @@
 import { ClassDeclaration } from 'ts-morph'
 
+import { line } from '../util/line'
+
 export function parseClass(classNode: ClassDeclaration): string {
   const className = classNode.getName();
-  return `class_name ${className}\n`;
+  return line(`class_name ${className}`);
 }
 
 if (import.meta.vitest) {

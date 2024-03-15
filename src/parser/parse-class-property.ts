@@ -1,6 +1,7 @@
 import { PropertyDeclaration } from 'ts-morph'
 
 import { getGdType } from '../util/get-gd-type'
+import { line } from '../util/line'
 
 export function parseClassProperty(propertyNode: PropertyDeclaration): string {
   const propertyName = propertyNode.getName();
@@ -11,7 +12,7 @@ export function parseClassProperty(propertyNode: PropertyDeclaration): string {
   if (propertyInitial) {
     output += ` = ${propertyInitial}`;
   }
-  return `${output}\n`;
+  return line(output);
 }
 
 if (import.meta.vitest) {

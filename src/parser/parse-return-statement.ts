@@ -1,5 +1,7 @@
 import { ReturnStatement } from 'ts-morph'
 
+import { line } from '../util/line'
+
 export function parseReturnStatement(returnStatement: ReturnStatement): string {
   const expression = returnStatement.getExpression()?.getText();
 
@@ -7,7 +9,7 @@ export function parseReturnStatement(returnStatement: ReturnStatement): string {
     .filter((token) => token)
     .join(" ");
 
-  return `${returnLine}\n`;
+  return line(returnLine);
 }
 
 if (import.meta.vitest) {

@@ -2,6 +2,7 @@ import { parseParameter } from './parse-parameter'
 import { MethodDeclaration } from 'ts-morph'
 
 import { getGdType } from '../util/get-gd-type'
+import { line } from '../util/line'
 
 export function parseMethodDeclaration(methodNode: MethodDeclaration): string {
   const methodName = methodNode.getName();
@@ -19,7 +20,7 @@ export function parseMethodDeclaration(methodNode: MethodDeclaration): string {
     .filter((token) => token)
     .join(" ");
 
-  return `${methodDeclaration}\n`;
+  return line(methodDeclaration);
 }
 
 if (import.meta.vitest) {
