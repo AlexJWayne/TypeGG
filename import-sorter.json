@@ -1,6 +1,7 @@
 {
   "wrappingStyle": "prettier",
   "hasSemicolon": false,
+  "quoteMark": "single",
   "groupRules": [
     "^$",
     {},

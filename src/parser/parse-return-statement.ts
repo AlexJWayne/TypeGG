@@ -4,18 +4,18 @@ import { ReturnStatement } from 'ts-morph'
 import { line } from '../util/line'
 
 export function parseReturnStatement(returnStatement: ReturnStatement): string {
-  const returnExpression = returnStatement.getExpression();
+  const returnExpression = returnStatement.getExpression()
 
-  const output = ["return"];
-  if (returnExpression) output.push(parseExpression(returnExpression));
+  const output = ['return']
+  if (returnExpression) output.push(parseExpression(returnExpression))
 
-  return line(output.join(" "));
+  return line(output.join(' '))
 }
 
 if (import.meta.vitest) {
-  const { expect, test } = import.meta.vitest;
+  const { expect, test } = import.meta.vitest
 
-  test("empty", () => {
+  test('empty', () => {
     expect(`
       export default class Foo {
         bar(): void {
@@ -26,10 +26,10 @@ if (import.meta.vitest) {
       class_name Foo
       func bar() -> void:
           return
-    `);
-  });
+    `)
+  })
 
-  test("value", () => {
+  test('value', () => {
     expect(`
       export default class Foo {
         bar(): string {
@@ -40,6 +40,6 @@ if (import.meta.vitest) {
       class_name Foo
       func bar() -> String:
           return "baz"
-    `);
-  });
+    `)
+  })
 }

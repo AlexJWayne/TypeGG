@@ -6,9 +6,9 @@ import { line } from '../util/line'
 export function parseCallExpression(callExpression: CallExpression): string {
   const identifier = callExpression
     .getFirstChildByKindOrThrow(SyntaxKind.Identifier)
-    .getText();
+    .getText()
 
-  const args = callExpression.getArguments().map(parseExpression);
+  const args = callExpression.getArguments().map(parseExpression)
 
-  return line(`${identifier}(${args.join(", ")})`);
+  return line(`${identifier}(${args.join(', ')})`)
 }

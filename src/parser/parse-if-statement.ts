@@ -5,32 +5,32 @@ import { indent } from '../util/indent'
 import { line } from '../util/line'
 
 export function parseIfStatement(statement: IfStatement): string {
-  const condition = statement.getExpression().getText();
+  const condition = statement.getExpression().getText()
   const thenNodes =
-    statement.getThenStatement().getChildSyntaxList()?.getChildren() ?? [];
+    statement.getThenStatement().getChildSyntaxList()?.getChildren() ?? []
 
-  const elseStatement = statement.getElseStatement();
-  const elseNodes = elseStatement?.getChildSyntaxList()?.getChildren() ?? [];
+  const elseStatement = statement.getElseStatement()
+  const elseNodes = elseStatement?.getChildSyntaxList()?.getChildren() ?? []
 
   const output = [
     line(`if ${condition}:`), //
     indent(parseStatements(thenNodes)),
-  ];
+  ]
 
   if (elseStatement) {
     output.push(
-      line("else:"), //
+      line('else:'), //
       indent(parseStatements(elseNodes)),
-    );
+    )
   }
 
-  return output.join("");
+  return output.join('')
 }
 
 if (import.meta.vitest) {
-  const { expect, test } = import.meta.vitest;
+  const { expect, test } = import.meta.vitest
 
-  test("empty", () => {
+  test('empty', () => {
     expect(`
       export default class Foo {
         bar(): void {
@@ -42,10 +42,10 @@ if (import.meta.vitest) {
       func bar() -> void:
           if true:
               pass
-    `);
-  });
+    `)
+  })
 
-  test("return", () => {
+  test('return', () => {
     expect(`
       export default class Foo {
         bar(): string {
@@ -61,10 +61,10 @@ if (import.meta.vitest) {
           if true:
               return "bar"
           return "baz"
-    `);
-  });
+    `)
+  })
 
-  test("nested", () => {
+  test('nested', () => {
     expect(`
       export default class Foo {
         bar(): void {
@@ -81,10 +81,10 @@ if (import.meta.vitest) {
           if true:
               if false:
                   return
-    `);
-  });
+    `)
+  })
 
-  test("else", () => {
+  test('else', () => {
     expect(`
       export default class Foo {
         foo(): string {
@@ -102,6 +102,6 @@ if (import.meta.vitest) {
               return "foo"
           else:
               return "bar"
-    `);
-  });
+    `)
+  })
 }

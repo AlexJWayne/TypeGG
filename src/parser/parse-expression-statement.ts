@@ -4,5 +4,5 @@ import { ExpressionStatement } from 'ts-morph'
 export function parseExpressionStatement(
   expressionStatement: ExpressionStatement,
 ): string {
-  return parseExpression(expressionStatement.getExpression());
+  return parseExpression(expressionStatement.getExpression())
 }

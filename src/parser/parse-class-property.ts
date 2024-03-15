@@ -4,21 +4,21 @@ import { getGdType } from '../util/get-gd-type'
 import { line } from '../util/line'
 
 export function parseClassProperty(propertyNode: PropertyDeclaration): string {
-  const propertyName = propertyNode.getName();
-  const propertyType = getGdType(propertyNode.getType());
-  const propertyInitial = propertyNode.getInitializer()?.getText();
+  const propertyName = propertyNode.getName()
+  const propertyType = getGdType(propertyNode.getType())
+  const propertyInitial = propertyNode.getInitializer()?.getText()
 
-  let output = `var ${propertyName}: ${propertyType}`;
+  let output = `var ${propertyName}: ${propertyType}`
   if (propertyInitial) {
-    output += ` = ${propertyInitial}`;
+    output += ` = ${propertyInitial}`
   }
-  return line(output);
+  return line(output)
 }
 
 if (import.meta.vitest) {
-  const { expect, test } = import.meta.vitest;
+  const { expect, test } = import.meta.vitest
 
-  test("instance property", () => {
+  test('instance property', () => {
     expect(`
       export default class Foo {
         bar: string = "baz";
@@ -26,6 +26,6 @@ if (import.meta.vitest) {
     `).toCompileTo(`
       class_name Foo
       var bar: String = "baz"
-    `);
-  });
+    `)
+  })
 }
