@@ -1,15 +1,15 @@
+import { parseExpression } from './parse-expression'
 import { ReturnStatement } from 'ts-morph'
 
 import { line } from '../util/line'
 
 export function parseReturnStatement(returnStatement: ReturnStatement): string {
-  const expression = returnStatement.getExpression()?.getText();
+  const returnExpression = returnStatement.getExpression();
 
-  const returnLine = ["return", expression ? `${expression}` : ""]
-    .filter((token) => token)
-    .join(" ");
+  const output = ["return"];
+  if (returnExpression) output.push(parseExpression(returnExpression));
 
-  return line(returnLine);
+  return line(output.join(" "));
 }
 
 if (import.meta.vitest) {
