@@ -45,4 +45,19 @@ if (import.meta.vitest) {
           var foo: String = "hello"
     `)
   })
+
+  test('multiple', () => {
+    expect(`
+      export default class Foo {
+        foo() {
+          let foo = "hello", bar: number
+        }
+      }
+    `).toCompileTo(`
+      class_name Foo
+      func foo() -> void:
+          var foo: String = "hello"
+          var bar: float
+    `)
+  })
 }
