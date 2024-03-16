@@ -1,4 +1,5 @@
 export class Spacehip {
+  @exports
   myProp: string = 'asd'
 
   launch() {

@@ -1,5 +1,5 @@
 class_name Spacehip
-var myProp: String = 'asd'
+@export var myProp: String = 'asd'
 func launch() -> void:
     if true:
         print("launch")
