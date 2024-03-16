@@ -5,15 +5,19 @@
     "test:ui": "vitest --ui",
     "build": "npm run clean && tsc --noEmit && tsc --project tsconfig.build.json",
     "clean": "rm -rf ./dist",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "example": "npx tsx src/transpiler/transpile",
+    "example:watch": "npx tsx src/transpiler/watch"
   },
-  "type": "module",
   "devDependencies": {
+    "@types/node": "^20.11.28",
     "@vitest/ui": "^1.3.1",
     "prettier": "^3.2.5",
+    "tsx": "^4.7.1",
     "vitest": "^1.3.1"
   },
   "dependencies": {
+    "chokidar": "^3.6.0",
     "ts-morph": "^22.0.0",
     "typescript": "^5.4.2"
   }

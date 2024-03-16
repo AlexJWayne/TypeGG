@@ -9,7 +9,7 @@ export function parseTsFile(tsCode: string): string {
 
   output.push(parseClass(fileClass))
 
-  return output.join('\n')
+  return output.join('')
 }
 
 function getProject(

@@ -29,7 +29,7 @@ export function parseStatements(statements: Node[]): string {
       printAstTree(statement)
       return statement.getText()
     })
-    .join('\n')
+    .join('')
 }
 
 if (import.meta.vitest) {
