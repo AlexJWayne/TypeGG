@@ -5,10 +5,11 @@ import { parseVariableStatement } from './parse-variable-statement'
 import { Node, SyntaxKind } from 'ts-morph'
 
 import { printAstTree } from '../util/debug'
+import { line } from '../util/line'
 
 export function parseStatements(statements: Node[]): string {
   if (statements.length === 0) {
-    return 'pass'
+    return line('pass')
   }
 
   return statements

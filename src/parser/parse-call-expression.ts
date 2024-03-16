@@ -5,7 +5,7 @@ import { line } from '../util/line'
 
 export function parseCallExpression(callExpression: CallExpression): string {
   const identifier = callExpression
-    .getFirstChildByKindOrThrow(SyntaxKind.Identifier)
+    .getFirstDescendantByKindOrThrow(SyntaxKind.Identifier)
     .getText()
 
   const args = callExpression.getArguments().map(parseExpression)

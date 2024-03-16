@@ -1,22 +1,22 @@
 import { expect, it } from 'vitest'
 
-it.only('passes', () => {
+it('passes', () => {
   expect(1).toBe(1)
 })
 
-it('anonymous functions', () => {
+it('instance method call', () => {
   expect(`
     export default class Foo {
-      foo() {
-        const fn = () => {}
-        fn()
+      foo() {}
+      bar() {
+        this.foo()
       }
     }
   `).toCompileTo(`
     class_name Foo
     func foo() -> void:
-        var fn = func():
-            pass
-        fn()
+        pass
+    func bar() -> void:
+        foo()
   `)
 })

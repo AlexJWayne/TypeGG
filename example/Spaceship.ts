@@ -7,7 +7,7 @@ export class Spacehip {
       if (true) {
         print('hello moon')
         if (true) {
-          print('launch')
+          this.fly()
         }
       }
     }

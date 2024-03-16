@@ -6,6 +6,6 @@ func launch() -> void:
         if true:
             print("hello moon")
             if true:
-                print("launch")
+                fly()
 func fly() -> void:
     print("fly")

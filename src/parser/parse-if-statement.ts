@@ -1,3 +1,4 @@
+import { parseExpression } from './parse-expression'
 import { parseStatements } from './parse-statements'
 import { IfStatement } from 'ts-morph'
 
@@ -5,7 +6,7 @@ import { indent } from '../util/indent'
 import { line } from '../util/line'
 
 export function parseIfStatement(statement: IfStatement): string {
-  const condition = statement.getExpression().getText()
+  const condition = parseExpression(statement.getExpression())
   const thenNodes =
     statement.getThenStatement().getChildSyntaxList()?.getChildren() ?? []
 
