@@ -1,15 +1,14 @@
-import { CallExpression, SyntaxKind } from 'ts-morph'
+import { CallExpression } from 'ts-morph'
 
 import { parseExpression } from './expression'
 
 export function parseCallExpression(callExpression: CallExpression): string {
-  const identifier = callExpression
-    .getFirstDescendantByKindOrThrow(SyntaxKind.Identifier)
-    .getText()
-
-  const args = callExpression.getArguments().map(parseExpression)
-
-  return `${identifier}(${args.join(', ')})`
+  const parsedExpression = parseExpression(callExpression.getExpression())
+  const parsedArguments = callExpression
+    .getArguments()
+    .map(parseExpression)
+    .join(', ')
+  return `${parsedExpression}(${parsedArguments})`
 }
 
 if (import.meta.vitest) {
@@ -29,7 +28,7 @@ if (import.meta.vitest) {
     `)
   })
 
-  test('instance method', () => {
+  test.only('instance method', () => {
     expect(`
       export class Foo {
         foo() {
@@ -40,7 +39,7 @@ if (import.meta.vitest) {
     `).toCompileTo(`
       class_name Foo
       func foo() -> void:
-          bar()
+          self.bar()
       func bar() -> void:
           pass
     `)

@@ -17,6 +17,6 @@ it('instance method call', () => {
     func foo() -> void:
         pass
     func bar() -> void:
-        foo()
+        self.foo()
   `)
 })

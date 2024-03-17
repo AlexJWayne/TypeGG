@@ -19,4 +19,8 @@ export class Spacehip extends Sprite2D {
     print(`fly me to the ${celestialBody}!
 And Back`)
   }
+
+  protected _ready(): void {
+    this.launch()
+  }
 }
