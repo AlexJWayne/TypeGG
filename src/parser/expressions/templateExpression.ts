@@ -14,8 +14,6 @@ export function parseTemplateExpression(
       parseStringLiteral(span.getLiteral()),
     ])
 
-  console.log(spans)
-
   return [head, ...spans].join(' + ')
 }
 
