@@ -42,9 +42,9 @@ export function parseExpression(node: Node): string {
     case node.isKind(SyntaxKind.ThisKeyword):
       return 'self'
     case node.getKind() === SyntaxKind.DotToken: // Why does this break narrowing when using `isKind`?
-      return '.'
     case node.isKind(SyntaxKind.TrueKeyword):
     case node.isKind(SyntaxKind.FalseKeyword):
+    case node.isKind(SyntaxKind.NullKeyword):
       return node.getText()
   }
 

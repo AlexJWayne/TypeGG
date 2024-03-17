@@ -9,18 +9,23 @@ import { parseStatements } from './statements'
 
 export function parseIfStatement(statement: IfStatement): string {
   const condition = parseExpression(statement.getExpression())
+
+  const thenStatement = statement.getThenStatement()
   const thenNodes =
-    statement.getThenStatement().getChildSyntaxList()?.getChildren() ?? []
+    thenStatement.getChildSyntaxList()?.getChildren() ?? [thenStatement] ?? []
 
   const elseStatement = statement.getElseStatement()
-  const elseNodes = elseStatement?.getChildSyntaxList()?.getChildren() ?? []
+  const elseNodes =
+    elseStatement?.getChildSyntaxList()?.getChildren() ??
+    (elseStatement && [elseStatement]) ??
+    []
 
   const output = [
     line(`if ${condition}:`), //
     indent(parseStatements(thenNodes)),
   ]
 
-  if (elseStatement) {
+  if (elseStatement && elseNodes) {
     output.push(
       line('else:'), //
       indent(parseStatements(elseNodes)),
@@ -105,6 +110,39 @@ if (import.meta.vitest) {
               return "foo"
           else:
               return "bar"
+    `)
+  })
+
+  test('without braces', () => {
+    expect(`
+      export default class Foo {
+        bar(): void {
+          if (true) return;
+        }
+      }
+    `).toCompileTo(`
+      class_name Foo
+      func bar() -> void:
+          if true:
+              return
+    `)
+  })
+
+  test('else without braces', () => {
+    expect(`
+      export default class Foo {
+        bar(): void {
+          if (true) return 123;
+          else return 456;
+        }
+      }
+    `).toCompileTo(`
+      class_name Foo
+      func bar() -> void:
+          if true:
+              return 123
+          else:
+              return 456
     `)
   })
 }

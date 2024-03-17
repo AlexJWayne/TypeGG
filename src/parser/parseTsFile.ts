@@ -12,7 +12,9 @@ function getProject(
   filename: string,
   tsCode: string,
 ): { project: Project; file: SourceFile } {
-  const project = new Project({ useInMemoryFileSystem: true })
+  const project = new Project({
+    //
+  })
 
   return {
     project,
