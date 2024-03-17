@@ -6,6 +6,8 @@ import { Node, SyntaxKind } from 'ts-morph'
 import { printAstTree } from '../util/debug'
 
 export function parseExpression(node: Node): string {
+  if (node.isKind(SyntaxKind.Identifier)) return node.getText()
+
   if (node.isKind(SyntaxKind.CallExpression)) return parseCallExpression(node)
   if (node.isKind(SyntaxKind.ArrowFunction)) return parseArrowFunction(node)
 
