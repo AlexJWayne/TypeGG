@@ -10,9 +10,11 @@ export function parseTemplateExpression(
   const spans = templateExpression
     .getTemplateSpans()
     .flatMap((span) => [
-      parseExpression(span.getExpression()),
+      `str(${parseExpression(span.getExpression())})`,
       parseStringLiteral(span.getLiteral()),
     ])
+
+  console.log(spans)
 
   return [head, ...spans].join(' + ')
 }
@@ -52,15 +54,30 @@ if (import.meta.vitest) {
     expect(`
       export default class Foo {
         foo() {
-          const world = 'world'
-          const str = \`hello \${world}!\`
+          const n: int = 123
+          const str = \`hello \${n} and \${456}!\`
         }
       }
     `).toCompileTo(`
       class_name Foo
       func foo() -> void:
-          var world: String = "world"
-          var str: String = "hello " + world + "!"
+          var n: int = 123
+          var str: String = "hello " + str(n) + " and " + str(456) + "!"
+    `)
+  })
+
+  test('new lines', () => {
+    expect(`
+      export default class Foo {
+        foo() {
+          const str = \`hello
+world\`
+        }
+      }
+    `).toCompileTo(`
+      class_name Foo
+      func foo() -> void:
+          var str: String = "hello\\nworld"
     `)
   })
 }
