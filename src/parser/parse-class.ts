@@ -1,8 +1,9 @@
-import { parseClassProperty } from './parse-class-property'
-import { parseMethod } from './parse-method'
 import { ClassDeclaration } from 'ts-morph'
 
 import { line } from '../util/line'
+
+import { parseClassProperty } from './parse-class-property'
+import { parseMethod } from './parse-method'
 
 export function parseClass(classNode: ClassDeclaration): string {
   const className = classNode.getName()

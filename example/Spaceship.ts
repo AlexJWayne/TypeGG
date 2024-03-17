@@ -1,6 +1,6 @@
 export class Spacehip {
   @exports
-  myProp: string = 'asd'
+  myProp: float = 123
 
   launch() {
     if (true) {

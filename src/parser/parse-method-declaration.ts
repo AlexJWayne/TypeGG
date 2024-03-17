@@ -1,8 +1,9 @@
-import { parseParameter } from './parse-parameter'
 import { MethodDeclaration } from 'ts-morph'
 
 import { getGdType } from '../util/get-gd-type'
 import { line } from '../util/line'
+
+import { parseParameter } from './parse-parameter'
 
 export function parseMethodDeclaration(methodNode: MethodDeclaration): string {
   const methodName = methodNode.getName()
@@ -11,6 +12,7 @@ export function parseMethodDeclaration(methodNode: MethodDeclaration): string {
   const parameters = methodNode.getParameters().map(parseParameter).join(', ')
 
   return line(
+    '\n\n',
     methodNode.isStatic() && 'static ',
     'func ',
     `${methodName}(${parameters}) `,

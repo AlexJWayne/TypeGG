@@ -1,5 +1,6 @@
-import { parseExpression } from './parse-expression'
 import { BinaryExpression } from 'ts-morph'
+
+import { parseExpression } from './parse-expression'
 
 export function parseBinaryExpression(node: BinaryExpression): string {
   const operator = node.getOperatorToken().getText()

@@ -9,3 +9,6 @@ declare function exports(
 
 type float = number
 type int = number
+
+declare const PI: float
+declare function sin(x: float): float

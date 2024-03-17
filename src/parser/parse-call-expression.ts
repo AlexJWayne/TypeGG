@@ -1,7 +1,6 @@
-import { parseExpression } from './parse-expression'
 import { CallExpression, SyntaxKind } from 'ts-morph'
 
-import { line } from '../util/line'
+import { parseExpression } from './parse-expression'
 
 export function parseCallExpression(callExpression: CallExpression): string {
   const identifier = callExpression
@@ -10,7 +9,7 @@ export function parseCallExpression(callExpression: CallExpression): string {
 
   const args = callExpression.getArguments().map(parseExpression)
 
-  return line(`${identifier}(${args.join(', ')})`)
+  return `${identifier}(${args.join(', ')})`
 }
 
 if (import.meta.vitest) {
