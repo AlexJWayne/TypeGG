@@ -1,4 +1,4 @@
-export class Spacehip {
+export class Spacehip extends Sprite2D {
   @exports
   myProp: float = 123
 
