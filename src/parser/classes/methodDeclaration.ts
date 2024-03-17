@@ -12,7 +12,7 @@ export function parseMethodDeclaration(methodNode: MethodDeclaration): string {
   const parameters = methodNode.getParameters().map(parseParameter).join(', ')
 
   return line(
-    '\n\n',
+    '\n',
     methodNode.isStatic() && 'static ',
     'func ',
     `${methodName}(${parameters}) `,

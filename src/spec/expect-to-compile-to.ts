@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 
-import { parseTsFile } from '../parser/parse-ts-file'
+import { parseTsFile } from '../parser/parseTsFile'
 
 expect.extend({
   /**
@@ -26,6 +26,7 @@ expect.extend({
 
 function removeEmptyLines(gdScript: string): string {
   return gdScript
+    .replace(/^#.*$/m, '') // Remove leading comment
     .split('\n')
     .filter((line) => line.trim() !== '')
     .join('\n')
