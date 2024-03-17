@@ -1,10 +1,11 @@
 import { IfStatement } from 'ts-morph'
 
-import { indent } from '../util/indent'
-import { line } from '../util/line'
+import { indent } from '../../util/indent'
+import { line } from '../../util/line'
 
-import { parseExpression } from './parse-expression'
-import { parseStatements } from './parse-statements'
+import { parseExpression } from '../expressions/expression'
+
+import { parseStatements } from './statements'
 
 export function parseIfStatement(statement: IfStatement): string {
   const condition = parseExpression(statement.getExpression())

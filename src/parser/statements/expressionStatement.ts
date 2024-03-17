@@ -1,6 +1,6 @@
 import { ExpressionStatement } from 'ts-morph'
 
-import { parseExpression } from './parse-expression'
+import { parseExpression } from '../expressions/expression'
 
 export function parseExpressionStatement(
   expressionStatement: ExpressionStatement,

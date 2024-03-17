@@ -1,8 +1,8 @@
 import { ReturnStatement } from 'ts-morph'
 
-import { line } from '../util/line'
+import { line } from '../../util/line'
 
-import { parseExpression } from './parse-expression'
+import { parseExpression } from '../expressions/expression'
 
 export function parseReturnStatement(returnStatement: ReturnStatement): string {
   const returnExpression = returnStatement.getExpression()

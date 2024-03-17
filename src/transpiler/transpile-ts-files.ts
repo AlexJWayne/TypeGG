@@ -1,7 +1,7 @@
 import chokidar, { FSWatcher } from 'chokidar'
 import fs from 'fs'
 
-import { parseTsFile } from '../parser/parser'
+import { parseTsFile } from '../parser/parse-ts-file'
 
 export function startWatching(root: string): FSWatcher {
   return chokidar

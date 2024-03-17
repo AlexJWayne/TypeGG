@@ -1,9 +1,9 @@
 import { VariableDeclaration } from 'ts-morph'
 
-import { getGdType } from '../util/get-gd-type'
-import { line } from '../util/line'
+import { getGdType } from '../../util/get-gd-type'
+import { line } from '../../util/line'
 
-import { parseExpression } from './parse-expression'
+import { parseExpression } from '../expressions/expression'
 
 export function parseVariableDeclaration(
   variableDeclaration: VariableDeclaration,

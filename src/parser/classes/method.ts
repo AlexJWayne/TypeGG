@@ -1,9 +1,10 @@
 import { MethodDeclaration } from 'ts-morph'
 
-import { indent } from '../util/indent'
+import { indent } from '../../util/indent'
 
-import { parseMethodDeclaration } from './parse-method-declaration'
-import { parseStatements } from './parse-statements'
+import { parseStatements } from '../statements/statements'
+
+import { parseMethodDeclaration } from './methodDeclaration'
 
 export function parseMethod(methodNode: MethodDeclaration): string {
   return [

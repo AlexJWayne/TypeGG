@@ -1,7 +1,7 @@
 import { PropertyDeclaration } from 'ts-morph'
 
-import { getGdType } from '../util/get-gd-type'
-import { line } from '../util/line'
+import { getGdType } from '../../util/get-gd-type'
+import { line } from '../../util/line'
 
 export function parseClassProperty(propertyNode: PropertyDeclaration): string {
   const exportsDecorator = propertyNode.getDecorator('exports')

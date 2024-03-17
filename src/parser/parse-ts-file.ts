@@ -1,16 +1,11 @@
 import { ClassDeclaration, Project, SourceFile } from 'ts-morph'
 
-import { parseClass } from './parse-class'
+import { parseClass } from './classes/class'
 
 export function parseTsFile(tsCode: string): string {
   const { file } = getProject('temp.ts', tsCode)
-  let output: string[] = []
-
   const fileClass = getFileClass(file)
-
-  output.push(parseClass(fileClass))
-
-  return output.join('')
+  return parseClass(fileClass)
 }
 
 function getProject(

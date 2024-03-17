@@ -1,6 +1,6 @@
 import { ParenthesizedExpression } from 'ts-morph'
 
-import { parseExpression } from './parse-expression'
+import { parseExpression } from './expression'
 
 export function parseParenthesizedExpression(
   parenthesizedExpression: ParenthesizedExpression,

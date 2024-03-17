@@ -1,6 +1,6 @@
 import { VariableStatement } from 'ts-morph'
 
-import { parseVariableDeclaration } from './parse-variable-declaration'
+import { parseVariableDeclaration } from './variableDeclaration'
 
 export function parseVariableStatement(
   variableStatement: VariableStatement,

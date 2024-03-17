@@ -1,9 +1,9 @@
 import { MethodDeclaration } from 'ts-morph'
 
-import { getGdType } from '../util/get-gd-type'
-import { line } from '../util/line'
+import { getGdType } from '../../util/get-gd-type'
+import { line } from '../../util/line'
 
-import { parseParameter } from './parse-parameter'
+import { parseParameter } from './parameter'
 
 export function parseMethodDeclaration(methodNode: MethodDeclaration): string {
   const methodName = methodNode.getName()

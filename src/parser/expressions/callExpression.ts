@@ -1,6 +1,6 @@
 import { CallExpression, SyntaxKind } from 'ts-morph'
 
-import { parseExpression } from './parse-expression'
+import { parseExpression } from './expression'
 
 export function parseCallExpression(callExpression: CallExpression): string {
   const identifier = callExpression

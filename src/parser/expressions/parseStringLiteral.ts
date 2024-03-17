@@ -1,8 +1,4 @@
-import { NumericLiteral, StringLiteral } from 'ts-morph'
-
-export function parseNumericLiteral(node: NumericLiteral): string {
-  return node.getLiteralText()
-}
+import { StringLiteral } from 'ts-morph'
 
 export function parseStringLiteral(stringLiteral: StringLiteral): string {
   const stringValue = stringLiteral.getLiteralText()

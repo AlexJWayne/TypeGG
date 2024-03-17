@@ -1,6 +1,6 @@
 import { expect } from 'vitest'
 
-import { parseTsFile } from '../parser/parser'
+import { parseTsFile } from '../parser/parse-ts-file'
 
 expect.extend({
   /**

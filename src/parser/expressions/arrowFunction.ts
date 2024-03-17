@@ -1,10 +1,11 @@
 import { ArrowFunction, SyntaxKind } from 'ts-morph'
 
-import { indent } from '../util/indent'
-import { line } from '../util/line'
+import { indent } from '../../util/indent'
+import { line } from '../../util/line'
 
-import { parseExpression } from './parse-expression'
-import { parseStatements } from './parse-statements'
+import { parseStatements } from '../statements/statements'
+
+import { parseExpression } from './expression'
 
 export function parseArrowFunction(arrowFunction: ArrowFunction): string {
   const hasStatements = arrowFunction.getFirstChildByKind(SyntaxKind.Block)

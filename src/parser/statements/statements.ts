@@ -1,12 +1,12 @@
 import { Node, SyntaxKind } from 'ts-morph'
 
-import { printAstTree } from '../util/debug'
-import { line } from '../util/line'
+import { printAstTree } from '../../util/debug'
+import { line } from '../../util/line'
 
-import { parseExpressionStatement } from './parse-expression-statement'
-import { parseIfStatement } from './parse-if-statement'
-import { parseReturnStatement } from './parse-return-statement'
-import { parseVariableStatement } from './parse-variable-statement'
+import { parseExpressionStatement } from './expressionStatement'
+import { parseIfStatement } from './ifStatement'
+import { parseReturnStatement } from './returnStatement'
+import { parseVariableStatement } from './variableStatement'
 
 export function parseStatements(statements: Node[]): string {
   if (statements.length === 0) {
