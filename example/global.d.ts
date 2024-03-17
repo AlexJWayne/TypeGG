@@ -6,3 +6,6 @@ declare function exports(
   target: unknown,
   context: ClassFieldDecoratorContext,
 ): void
+
+type float = number
+type int = number
