@@ -10,17 +10,13 @@ export function parseMethodDeclaration(methodNode: MethodDeclaration): string {
 
   const parameters = methodNode.getParameters().map(parseParameter).join(', ')
 
-  const methodDeclaration = [
-    methodNode.isStatic() && 'static',
-    'func',
-    `${methodName}(${parameters})`,
-    '->',
+  return line(
+    methodNode.isStatic() && 'static ',
+    'func ',
+    `${methodName}(${parameters}) `,
+    '-> ',
     `${methodReturnType}:`,
-  ]
-    .filter((token) => token)
-    .join(' ')
-
-  return line(methodDeclaration)
+  )
 }
 
 if (import.meta.vitest) {
