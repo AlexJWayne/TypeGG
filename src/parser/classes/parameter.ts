@@ -1,6 +1,6 @@
 import { ParameterDeclaration } from 'ts-morph'
 
-import { getGdType } from '../../util/get-gd-type'
+import { getGdType } from '../../util/getGdType'
 
 export function parseParameter(parameter: ParameterDeclaration): string {
   const name = parameter.getName()

@@ -12,4 +12,5 @@ func launch() -> void:
                 fly()
 
 func fly() -> void:
-    print("fly")
+    var celestialBody: String = "moon"
+    print("fly me to the " + celestialBody + "!")

@@ -15,6 +15,7 @@ export class Spacehip {
   }
 
   fly() {
-    print('fly')
+    const celestialBody = 'moon'
+    print(`fly me to the ${celestialBody}!`)
   }
 }

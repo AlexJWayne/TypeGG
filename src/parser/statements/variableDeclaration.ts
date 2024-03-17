@@ -1,6 +1,6 @@
 import { VariableDeclaration } from 'ts-morph'
 
-import { getGdType } from '../../util/get-gd-type'
+import { getGdType } from '../../util/getGdType'
 import { line } from '../../util/line'
 
 import { parseExpression } from '../expressions/expression'

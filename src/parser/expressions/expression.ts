@@ -10,23 +10,29 @@ import { parseIdentifier } from './identifier'
 import { parseNumericLiteral } from './numericLiteral'
 import { parseParenthesizedExpression } from './parenthesizedExpression'
 import { parseStringLiteral } from './parseStringLiteral'
+import { parseTemplateExpression } from './templateExpression'
 
 export function parseExpression(node: Node): string {
   if (node.isKind(SyntaxKind.Identifier)) return parseIdentifier(node)
-
-  if (node.isKind(SyntaxKind.CallExpression)) return parseCallExpression(node)
-  if (node.isKind(SyntaxKind.ArrowFunction)) return parseArrowFunction(node)
-
-  if (node.isKind(SyntaxKind.StringLiteral)) return parseStringLiteral(node)
-  if (node.isKind(SyntaxKind.NumericLiteral)) return parseNumericLiteral(node)
-
-  if (node.isKind(SyntaxKind.TrueKeyword)) return parseBooleanLiteral(node)
-  if (node.isKind(SyntaxKind.FalseKeyword)) return parseBooleanLiteral(node)
 
   if (node.isKind(SyntaxKind.ParenthesizedExpression))
     return parseParenthesizedExpression(node)
   if (node.isKind(SyntaxKind.BinaryExpression))
     return parseBinaryExpression(node)
+
+  if (node.isKind(SyntaxKind.CallExpression)) return parseCallExpression(node)
+  if (node.isKind(SyntaxKind.ArrowFunction)) return parseArrowFunction(node)
+
+  if (node.isKind(SyntaxKind.StringLiteral)) return parseStringLiteral(node)
+  if (node.isKind(SyntaxKind.TemplateExpression))
+    return parseTemplateExpression(node)
+  if (node.isKind(SyntaxKind.NoSubstitutionTemplateLiteral))
+    return parseStringLiteral(node)
+
+  if (node.isKind(SyntaxKind.NumericLiteral)) return parseNumericLiteral(node)
+
+  if (node.isKind(SyntaxKind.TrueKeyword)) return parseBooleanLiteral(node)
+  if (node.isKind(SyntaxKind.FalseKeyword)) return parseBooleanLiteral(node)
 
   console.error('Unknown expression kind', node.getKindName())
   printAstTree(node)

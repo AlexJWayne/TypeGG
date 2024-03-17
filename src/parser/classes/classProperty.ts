@@ -1,6 +1,6 @@
 import { PropertyDeclaration } from 'ts-morph'
 
-import { getGdType } from '../../util/get-gd-type'
+import { getGdType } from '../../util/getGdType'
 import { line } from '../../util/line'
 
 export function parseClassProperty(propertyNode: PropertyDeclaration): string {

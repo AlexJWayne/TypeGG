@@ -12,6 +12,7 @@ export function getGdType(type: Type): string {
   const tsType = type.getText()
 
   if (type.getCallSignatures().length > 0) return 'Callable'
+  if (type.isStringLiteral()) return 'String'
 
   return primitiveTypesTsToGd[tsType] ?? tsType
 }
