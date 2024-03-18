@@ -1,11 +1,11 @@
 import { ParameterDeclaration } from 'ts-morph'
 
-import { getGdType } from '../../util/getGdType'
+import { getTypeAnnotation } from '../../util/getGdType'
 
 export function parseParameter(parameter: ParameterDeclaration): string {
   const name = parameter.getName()
-  const type = getGdType(parameter.getType())
-  return `${name}: ${type}`
+  const typeAnnotation = getTypeAnnotation(parameter.getType())
+  return `${name}${typeAnnotation}`
 }
 
 if (import.meta.vitest) {

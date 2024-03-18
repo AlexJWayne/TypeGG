@@ -15,9 +15,9 @@ export function parseMethodDeclaration(methodNode: MethodDeclaration): string {
     '\n',
     methodNode.isStatic() && 'static ',
     'func ',
-    `${methodName}(${parameters}) `,
-    '-> ',
-    `${methodReturnType}:`,
+    `${methodName}(${parameters})`,
+    methodReturnType && ` -> ${methodReturnType}`,
+    ':',
   )
 }
 
