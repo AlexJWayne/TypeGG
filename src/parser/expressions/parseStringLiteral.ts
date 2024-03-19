@@ -1,6 +1,12 @@
 import { LiteralLikeNode } from 'ts-morph'
 
-export function parseStringLiteral(stringLiteral: LiteralLikeNode): string {
-  const stringValue = stringLiteral.getLiteralText().replace(/\n/g, '\\n')
-  return `"${stringValue}"`
+import { GD } from '../grammar_'
+
+export function parseStringLiteral(
+  stringLiteral: LiteralLikeNode,
+): GD.StringLiteral {
+  return {
+    kind: GD.Kind.StringLiteral,
+    value: stringLiteral.getLiteralText(),
+  }
 }

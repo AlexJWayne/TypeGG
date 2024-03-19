@@ -1,0 +1,15 @@
+export enum GDKind {
+  BinaryExpression,
+  BooleanLiteral,
+  CallExpression,
+  ClassMethod,
+  ClassProperty,
+  Identifier,
+  IfStatement,
+  NumericLiteral,
+  Parameter,
+  ParenthesizedExpression,
+  SelfKeyword,
+  StringLiteral,
+  UnaryExpression,
+}
