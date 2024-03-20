@@ -19,30 +19,40 @@ if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest
 
   test('empty', () => {
-    expect(`
-      export default class Foo {
-        bar(): void {
-          return;
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func bar() -> void:
-          return
-    `)
+    expect('return').toParseStatements([
+      { kind: GDKind.ReturnStatement, expression: null },
+    ])
   })
 
-  test('value', () => {
-    expect(`
-      export default class Foo {
-        bar(): string {
-          return "baz";
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func bar() -> String:
-          return "baz"
-    `)
+  test('literal', () => {
+    expect("return 'foo'").toParseStatements([
+      {
+        kind: GDKind.ReturnStatement,
+        expression: { kind: GDKind.StringLiteral, value: 'foo' },
+      },
+    ])
+  })
+
+  test('identifier', () => {
+    expect('return foo').toParseStatements([
+      {
+        kind: GDKind.ReturnStatement,
+        expression: { kind: GDKind.Identifier, name: 'foo' },
+      },
+    ])
+  })
+
+  test('expression', () => {
+    expect('return 1 + 2').toParseStatements([
+      {
+        kind: GDKind.ReturnStatement,
+        expression: {
+          kind: GDKind.BinaryExpression,
+          left: { kind: GDKind.NumericLiteral, value: 1 },
+          operator: '+',
+          right: { kind: GDKind.NumericLiteral, value: 2 },
+        },
+      },
+    ])
   })
 }
