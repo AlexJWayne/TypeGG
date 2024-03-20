@@ -21,9 +21,3 @@ export function getGdType(type: Type): string {
 
   return primitiveTypesTsToGd[tsType] ?? tsType
 }
-
-export function getTypeAnnotation(type: Type): string {
-  const gdType = getGdType(type)
-  if (!gdType) return ''
-  return `: ${getGdType(type)}`
-}

@@ -1,12 +1,15 @@
 import { ClassDeclaration, Project, SourceFile } from 'ts-morph'
 
+import { renderClass } from '../renderer/class'
+
 import { parseClass } from './classes/class'
 
 export function parseTsFile(tsCode: string): string {
   // TODO: make a real project out of all TS files.
   const { file } = getProject('temp.ts', tsCode)
   const fileClass = getFileClass(file)
-  return parseClass(fileClass)
+  const parsedClass = parseClass(fileClass)
+  return renderClass(parsedClass)
 }
 
 function getProject(

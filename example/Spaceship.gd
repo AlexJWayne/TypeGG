@@ -2,19 +2,4 @@
 
 class_name Spacehip
 extends Sprite2D
-@export var myProp: float = 123
-
-func launch() -> void:
-    if true:
-        print("launch")
-        if true:
-            print("hello moon")
-            if true:
-                self.fly()
-
-func fly() -> void:
-    var celestialBody: String = "moon"
-    print("fly me to the " + str(celestialBody) + "!\nAnd Back")
-
-func _ready() -> void:
-    self.launch()
+@export var myProp: float = [object Object]

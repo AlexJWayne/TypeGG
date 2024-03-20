@@ -22,6 +22,18 @@ expect.extend({
       actual: receivedFinal,
     }
   },
+
+  toEqualGdScript(received: string, expected: string) {
+    const receivedFinal = removeEmptyLines(received.trim())
+    const expectedFinal = removeEmptyLines(trimFromEachLineStart(expected))
+
+    return {
+      pass: expectedFinal === receivedFinal,
+      message: () => `expected${this.isNot ? ' not' : ''} to equal gd script`,
+      expected: expectedFinal,
+      actual: receivedFinal,
+    }
+  },
 })
 
 function removeEmptyLines(gdScript: string): string {
