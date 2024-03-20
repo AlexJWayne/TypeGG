@@ -9,3 +9,11 @@ export function parseIdentifier(node: Identifier): GDIdentifier {
     name: node.getText(),
   }
 }
+
+if (import.meta.vitest) {
+  const { test, expect } = import.meta.vitest
+
+  test('identifier', () => {
+    expect('foo').toParseStatements([{ kind: GDKind.Identifier, name: 'foo' }])
+  })
+}

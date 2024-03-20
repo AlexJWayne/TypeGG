@@ -1,6 +1,9 @@
+import { Project } from 'ts-morph'
 import { expect } from 'vitest'
 
+import { GDNode } from '../grammar/nodesUnion'
 import { parseTsFile } from '../parser/parseTsFile'
+import { parseStatement } from '../parser/statements/statement'
 
 expect.extend({
   /**
@@ -32,6 +35,19 @@ expect.extend({
       message: () => `expected${this.isNot ? ' not' : ''} to equal gd script`,
       expected: expectedFinal,
       actual: receivedFinal,
+    }
+  },
+
+  toParseStatements(received: string, expected: GDNode[]) {
+    const project = new Project({ useInMemoryFileSystem: true })
+    const file = project.createSourceFile('test.ts', received)
+    const statements = file.getStatements().map(parseStatement)
+
+    return {
+      pass: JSON.stringify(statements) === JSON.stringify(expected),
+      message: () => `expected${this.isNot ? ' not' : ''} to parse to`,
+      expected,
+      actual: statements,
     }
   },
 })

@@ -9,3 +9,19 @@ export function parseNumericLiteral(node: NumericLiteral): GDNumericLiteral {
     value: node.getLiteralValue(),
   }
 }
+
+if (import.meta.vitest) {
+  const { test, expect } = import.meta.vitest
+
+  test('number', () => {
+    expect('123').toParseStatements([
+      { kind: GDKind.NumericLiteral, value: 123 },
+    ])
+  })
+
+  test('float', () => {
+    expect('123.45').toParseStatements([
+      { kind: GDKind.NumericLiteral, value: 123.45 },
+    ])
+  })
+}

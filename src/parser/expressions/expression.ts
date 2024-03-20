@@ -42,7 +42,7 @@ export function parseExpression(node: Node) {
 
     case node.isKind(SyntaxKind.TrueKeyword):
     case node.isKind(SyntaxKind.FalseKeyword):
-      parseBooleanLiteral(node)
+      return parseBooleanLiteral(node)
     case node.isKind(SyntaxKind.NullKeyword):
       return { kind: GDKind.NullKeyword } as const
   }

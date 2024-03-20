@@ -11,3 +11,19 @@ export function parseBooleanLiteral(
     value: booleanLiteral.getLiteralValue(),
   }
 }
+
+if (import.meta.vitest) {
+  const { expect, test } = import.meta.vitest
+
+  test('true', () => {
+    expect('true').toParseStatements([
+      { kind: GDKind.BooleanLiteral, value: true },
+    ])
+  })
+
+  test('false', () => {
+    expect('false').toParseStatements([
+      { kind: GDKind.BooleanLiteral, value: false },
+    ])
+  })
+}

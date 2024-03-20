@@ -1,5 +1,6 @@
 import { Node, SyntaxKind } from 'ts-morph'
 
+import { GDKind } from '../../grammar/kind'
 import { GDNode } from '../../grammar/nodesUnion'
 import { printAstTree } from '../../util/debug'
 
@@ -23,5 +24,5 @@ export function parseStatement(statement: Node): GDNode {
 
   console.error('Unknown statement kind', statement.getKindName())
   printAstTree(statement)
-  return statement.getText()
+  return { kind: GDKind.Unsupported } as const
 }
