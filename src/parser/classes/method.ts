@@ -1,14 +1,20 @@
 import { MethodDeclaration } from 'ts-morph'
 
-import { indent } from '../../util/indent'
+import { GDKind } from '../../grammar/kind'
+import { GDClassMethod } from '../../grammar/nodes'
+import { getGdType } from '../../util/getGdType'
 
-import { parseStatements } from '../statements/statements'
+import { parseExpression } from '../expressions/expression'
 
-import { parseMethodDeclaration } from './methodDeclaration'
+import { parseParameter } from './parameter'
 
-export function parseMethod(methodNode: MethodDeclaration): string {
-  return [
-    parseMethodDeclaration(methodNode),
-    indent(parseStatements(methodNode.getStatements())),
-  ].join('')
+export function parseMethod(methodNode: MethodDeclaration): GDClassMethod {
+  return {
+    kind: GDKind.ClassMethod,
+    name: methodNode.getName(),
+    isStatic: methodNode.isStatic(),
+    returnType: getGdType(methodNode.getReturnType()),
+    parameters: methodNode.getParameters().map(parseParameter),
+    statements: methodNode.getStatements().map(parseExpression),
+  }
 }

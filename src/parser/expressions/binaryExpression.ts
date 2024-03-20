@@ -1,12 +1,19 @@
 import { BinaryExpression } from 'ts-morph'
 
+import { GDKind } from '../../grammar/kind'
+import { GDBinaryExpression } from '../../grammar/nodes'
+
 import { parseExpression } from './expression'
 
-export function parseBinaryExpression(node: BinaryExpression): string {
-  const operator = node.getOperatorToken().getText()
-  const left = parseExpression(node.getLeft())
-  const right = parseExpression(node.getRight())
-  return `${left} ${operator} ${right}`
+export function parseBinaryExpression(
+  node: BinaryExpression,
+): GDBinaryExpression {
+  return {
+    kind: GDKind.BinaryExpression,
+    left: parseExpression(node.getLeft()),
+    operator: node.getOperatorToken().getText(),
+    right: parseExpression(node.getRight()),
+  }
 }
 
 if (import.meta.vitest) {

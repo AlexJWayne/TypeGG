@@ -1,12 +1,13 @@
 import { LiteralLikeNode } from 'ts-morph'
 
-import { GD } from '../grammar_'
+import { GDKind } from '../../grammar/kind'
+import { GDStringLiteral } from '../../grammar/nodes'
 
 export function parseStringLiteral(
   stringLiteral: LiteralLikeNode,
-): GD.StringLiteral {
+): GDStringLiteral {
   return {
-    kind: GD.Kind.StringLiteral,
+    kind: GDKind.StringLiteral,
     value: stringLiteral.getLiteralText(),
   }
 }

@@ -1,11 +1,15 @@
 import { ParameterDeclaration } from 'ts-morph'
 
+import { GDKind } from '../../grammar/kind'
+import { GDParameter } from '../../grammar/nodes'
 import { getTypeAnnotation } from '../../util/getGdType'
 
-export function parseParameter(parameter: ParameterDeclaration): string {
-  const name = parameter.getName()
-  const typeAnnotation = getTypeAnnotation(parameter.getType())
-  return `${name}${typeAnnotation}`
+export function parseParameter(parameter: ParameterDeclaration): GDParameter {
+  return {
+    kind: GDKind.Parameter,
+    name: parameter.getName(),
+    type: getTypeAnnotation(parameter.getType()),
+  }
 }
 
 if (import.meta.vitest) {

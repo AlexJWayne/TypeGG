@@ -1,18 +1,18 @@
 import { Node, SyntaxKind } from 'ts-morph'
 
+import { GDKind } from '../../grammar/kind'
 import { printAstTree } from '../../util/debug'
 
-import { parseArrowFunction } from './arrowFunction'
 import { parseBinaryExpression } from './binaryExpression'
+import { parseBooleanLiteral } from './booleanLiteral'
 import { parseCallExpression } from './callExpression'
 import { parseIdentifier } from './identifier'
 import { parseNumericLiteral } from './numericLiteral'
 import { parseParenthesizedExpression } from './parenthesizedExpression'
 import { parsePropertyAccessExpression } from './parsePropertyAccessExpression'
 import { parseStringLiteral } from './parseStringLiteral'
-import { parseTemplateExpression } from './templateExpression'
 
-export function parseExpression(node: Node): string {
+export function parseExpression(node: Node) {
   switch (true) {
     case node.isKind(SyntaxKind.Identifier):
       return parseIdentifier(node)
@@ -24,15 +24,13 @@ export function parseExpression(node: Node): string {
 
     case node.isKind(SyntaxKind.CallExpression):
       return parseCallExpression(node)
-    case node.isKind(SyntaxKind.ArrowFunction):
-      return parseArrowFunction(node)
     case node.isKind(SyntaxKind.PropertyAccessExpression):
       return parsePropertyAccessExpression(node)
 
     case node.isKind(SyntaxKind.StringLiteral):
       return parseStringLiteral(node)
-    case node.isKind(SyntaxKind.TemplateExpression):
-      return parseTemplateExpression(node)
+    // case node.isKind(SyntaxKind.TemplateExpression):
+    //   return parseTemplateExpression(node)
     case node.isKind(SyntaxKind.NoSubstitutionTemplateLiteral):
       return parseStringLiteral(node)
 
@@ -40,15 +38,16 @@ export function parseExpression(node: Node): string {
       return parseNumericLiteral(node)
 
     case node.isKind(SyntaxKind.ThisKeyword):
-      return 'self'
-    case node.getKind() === SyntaxKind.DotToken: // Why does this break narrowing when using `isKind`?
+      return { kind: GDKind.SelfKeyword } as const
+
     case node.isKind(SyntaxKind.TrueKeyword):
     case node.isKind(SyntaxKind.FalseKeyword):
+      parseBooleanLiteral(node)
     case node.isKind(SyntaxKind.NullKeyword):
-      return node.getText()
+      return { kind: GDKind.NullKeyword } as const
   }
 
   console.error('Unknown expression kind', node.getKindName())
   printAstTree(node)
-  return ''
+  return { kind: GDKind.Unsupported } as const
 }

@@ -1,20 +1,22 @@
 import { PropertyDeclaration } from 'ts-morph'
 
-import { getTypeAnnotation } from '../../util/getGdType'
-import { line } from '../../util/line'
+import { GDKind } from '../../grammar/kind'
+import { GDClassProperty } from '../../grammar/nodes'
+import { getGdType } from '../../util/getGdType'
 
-export function parseClassProperty(propertyNode: PropertyDeclaration): string {
-  const exportsDecorator = propertyNode.getDecorator('exports')
-  const propertyName = propertyNode.getName()
-  const propertyTypeAnnotation = getTypeAnnotation(propertyNode.getType())
-  const propertyInitial = propertyNode.getInitializer()?.getText()
+import { parseExpression } from '../expressions/expression'
 
-  return line(
-    exportsDecorator && '@export ',
-    `var ${propertyName}`,
-    propertyTypeAnnotation,
-    propertyInitial && ` = ${propertyInitial}`,
-  )
+export function parseClassProperty(
+  propertyNode: PropertyDeclaration,
+): GDClassProperty {
+  const initializer = propertyNode.getInitializer()
+  return {
+    kind: GDKind.ClassProperty,
+    name: propertyNode.getName(),
+    type: getGdType(propertyNode.getType()),
+    isExported: !!propertyNode.getDecorator('exports'),
+    initial: initializer ? parseExpression(initializer) : null,
+  }
 }
 
 if (import.meta.vitest) {

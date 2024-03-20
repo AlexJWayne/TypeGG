@@ -1,11 +1,17 @@
 import { ParenthesizedExpression } from 'ts-morph'
 
+import { GDKind } from '../../grammar/kind'
+import { GDParenthesizedExpression } from '../../grammar/nodes'
+
 import { parseExpression } from './expression'
 
 export function parseParenthesizedExpression(
   parenthesizedExpression: ParenthesizedExpression,
-): string {
-  return `(${parseExpression(parenthesizedExpression.getExpression())})`
+): GDParenthesizedExpression {
+  return {
+    kind: GDKind.ParenthesizedExpression,
+    expression: parseExpression(parenthesizedExpression.getExpression()),
+  }
 }
 
 if (import.meta.vitest) {

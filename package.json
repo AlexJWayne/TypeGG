@@ -8,7 +8,8 @@
     "clean": "rm -rf ./dist",
     "format": "prettier --write .",
     "example": "npx tsx src/transpiler/transpile",
-    "example:watch": "npx tsx src/transpiler/watch"
+    "example:watch": "npx tsx src/transpiler/watch",
+    "grammar": "npx tsx src/grammar/buildGrammerTypes.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.28",

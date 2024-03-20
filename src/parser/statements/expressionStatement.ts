@@ -1,11 +1,11 @@
 import { ExpressionStatement } from 'ts-morph'
 
-import { line } from '../../util/line'
+import { GDNode } from '../../grammar/nodesUnion'
 
 import { parseExpression } from '../expressions/expression'
 
 export function parseExpressionStatement(
   expressionStatement: ExpressionStatement,
-): string {
-  return line(parseExpression(expressionStatement.getExpression()))
+): GDNode {
+  return parseExpression(expressionStatement.getExpression())
 }

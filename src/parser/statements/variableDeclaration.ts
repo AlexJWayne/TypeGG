@@ -1,19 +1,21 @@
 import { VariableDeclaration } from 'ts-morph'
 
-import { getTypeAnnotation } from '../../util/getGdType'
-import { line } from '../../util/line'
+import { GDKind } from '../../grammar/kind'
+import { GDVariableDeclaration } from '../../grammar/nodes'
+import { getGdType } from '../../util/getGdType'
 
 import { parseExpression } from '../expressions/expression'
 
 export function parseVariableDeclaration(
   variableDeclaration: VariableDeclaration,
-): string {
-  const identifier = variableDeclaration.getNameNode().getText()
-  const typeAnnotation = getTypeAnnotation(variableDeclaration.getType())
-  const valueExpression = variableDeclaration.getInitializer()
-  const value = valueExpression && parseExpression(valueExpression)
-
-  return line('var ', identifier, typeAnnotation, value && ` = ${value}`)
+): GDVariableDeclaration {
+  const initializer = variableDeclaration.getInitializer()
+  return {
+    kind: GDKind.VariableDeclaration,
+    name: variableDeclaration.getNameNode().getText(),
+    type: getGdType(variableDeclaration.getType()),
+    initial: initializer ? parseExpression(initializer) : null,
+  }
 }
 
 if (import.meta.vitest) {

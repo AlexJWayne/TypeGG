@@ -23,7 +23,7 @@ export interface GDStringLiteral extends GDNodeBase<GDKind.StringLiteral> {
 
 export interface GDCallExpression extends GDNodeBase<GDKind.CallExpression> {
   arguments: GDNodeBase[]
-  calee: GDNodeBase
+  callee: GDNodeBase
 }
 
 export interface GDUnaryExpression extends GDNodeBase<GDKind.UnaryExpression> {
@@ -34,7 +34,7 @@ export interface GDUnaryExpression extends GDNodeBase<GDKind.UnaryExpression> {
 export interface GDBinaryExpression
   extends GDNodeBase<GDKind.BinaryExpression> {
   left: GDNode
-  operator: GDNode
+  operator: string // ???
   right: GDNode
 }
 
@@ -42,7 +42,7 @@ export interface GDClassProperty extends GDNodeBase<GDKind.ClassProperty> {
   name: string
   type: string | null
   isExported: boolean
-  initial: GDNode
+  initial: GDNode | null
 }
 
 export interface GDClassMethod extends GDNodeBase<GDKind.ClassMethod> {
@@ -73,4 +73,36 @@ export interface GDIfStatement extends GDNodeBase<GDKind.IfStatement> {
     statements: GDNode[]
   }[]
   elseStatements: GDNode[] | null
+}
+
+export interface GDClass extends GDNodeBase<GDKind.Class> {
+  name: string
+  extends: string | null
+  properties: GDClassProperty[]
+  methods: GDClassMethod[]
+}
+
+export interface GDPropertyAccessExpression
+  extends GDNodeBase<GDKind.PropertyAccessExpression> {
+  object: GDNode
+  property: GDIdentifier
+}
+
+export interface GDNullKeyword extends GDNodeBase<GDKind.NullKeyword> {}
+
+export interface GDUnsupported extends GDNodeBase<GDKind.Unsupported> {}
+
+export interface GDReturnStatement extends GDNodeBase<GDKind.ReturnStatement> {
+  expression: GDNode | null
+}
+
+export interface GDVariableDeclaration
+  extends GDNodeBase<GDKind.VariableDeclaration> {
+  name: string
+  type: string | null
+  initial: GDNode | null
+}
+
+export interface GDFragment extends GDNodeBase<GDKind.Fragment> {
+  statements: GDNode[]
 }

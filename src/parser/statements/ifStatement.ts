@@ -1,15 +1,11 @@
 import { IfStatement } from 'ts-morph'
 
-import { indent } from '../../util/indent'
-import { line } from '../../util/line'
+import { GDKind } from '../../grammar/kind'
+import { GDIfStatement } from '../../grammar/nodes'
 
 import { parseExpression } from '../expressions/expression'
 
-import { parseStatements } from './statements'
-
-export function parseIfStatement(statement: IfStatement): string {
-  const condition = parseExpression(statement.getExpression())
-
+export function parseIfStatement(statement: IfStatement): GDIfStatement {
   const thenStatement = statement.getThenStatement()
   const thenNodes =
     thenStatement.getChildSyntaxList()?.getChildren() ?? [thenStatement] ?? []
@@ -20,19 +16,13 @@ export function parseIfStatement(statement: IfStatement): string {
     (elseStatement && [elseStatement]) ??
     []
 
-  const output = [
-    line(`if ${condition}:`), //
-    indent(parseStatements(thenNodes)),
-  ]
-
-  if (elseStatement && elseNodes) {
-    output.push(
-      line('else:'), //
-      indent(parseStatements(elseNodes)),
-    )
+  return {
+    kind: GDKind.IfStatement,
+    condition: parseExpression(statement.getExpression()),
+    thenStatements: thenNodes.map(parseExpression),
+    elseIfs: [], // TODO
+    elseStatements: elseStatement ? elseNodes.map(parseExpression) : null,
   }
-
-  return output.join('')
 }
 
 if (import.meta.vitest) {

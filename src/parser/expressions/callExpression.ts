@@ -1,5 +1,6 @@
 import { CallExpression } from 'ts-morph'
 
+import { GDKind } from '../../grammar/kind'
 import { GDCallExpression } from '../../grammar/nodes'
 
 import { parseExpression } from './expression'
@@ -7,12 +8,11 @@ import { parseExpression } from './expression'
 export function parseCallExpression(
   callExpression: CallExpression,
 ): GDCallExpression {
-  const parsedExpression = parseExpression(callExpression.getExpression())
-  const parsedArguments = callExpression
-    .getArguments()
-    .map(parseExpression)
-    .join(', ')
-  return `${parsedExpression}(${parsedArguments})`
+  return {
+    kind: GDKind.CallExpression,
+    callee: parseExpression(callExpression.getExpression()),
+    arguments: callExpression.getArguments().map(parseExpression),
+  }
 }
 
 // if (import.meta.vitest) {

@@ -1,16 +1,18 @@
 import { ReturnStatement } from 'ts-morph'
 
-import { line } from '../../util/line'
+import { GDKind } from '../../grammar/kind'
+import { GDReturnStatement } from '../../grammar/nodes'
 
 import { parseExpression } from '../expressions/expression'
 
-export function parseReturnStatement(returnStatement: ReturnStatement): string {
+export function parseReturnStatement(
+  returnStatement: ReturnStatement,
+): GDReturnStatement {
   const returnExpression = returnStatement.getExpression()
-
-  const output = ['return']
-  if (returnExpression) output.push(parseExpression(returnExpression))
-
-  return line(output.join(' '))
+  return {
+    kind: GDKind.ReturnStatement,
+    expression: returnExpression ? parseExpression(returnExpression) : null,
+  }
 }
 
 if (import.meta.vitest) {
