@@ -20,16 +20,13 @@ if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest
 
   test('addition', () => {
-    expect(`
-      export class Foo {
-        foo() {
-          return 1 + 2
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func foo() -> float:
-          return 1 + 2
-    `)
+    expect('1 + 2').toParseStatements([
+      {
+        kind: GDKind.BinaryExpression,
+        left: { kind: GDKind.NumericLiteral, value: 1 },
+        operator: '+',
+        right: { kind: GDKind.NumericLiteral, value: 2 },
+      },
+    ])
   })
 }
