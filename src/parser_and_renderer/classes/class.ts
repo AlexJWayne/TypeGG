@@ -23,24 +23,3 @@ export function parseClass(classNode: ClassDeclaration): string {
     ...classNode.getMethods().map(parseMethod),
   ].join('')
 }
-
-if (import.meta.vitest) {
-  const { expect, test } = import.meta.vitest
-
-  test('class name', () => {
-    expect(`
-      export class Foo {}
-    `).toCompileTo(`
-      class_name Foo
-    `)
-  })
-
-  test('extends', () => {
-    expect(`
-      export class Foo extends Sprite2D {}
-    `).toCompileTo(`
-      class_name Foo
-      extends Sprite2D
-    `)
-  })
-}

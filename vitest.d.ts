@@ -6,6 +6,7 @@ interface CustomMatchers<R = unknown> {
   toCompileTo: (expectedGd: string) => R
   toEqualGdScript: (expectedGd: string) => R
   toParseStatements: (expected: GDNode[]) => R
+  toParseExpression: (expected: GDNode) => R
 }
 
 declare module 'vitest' {

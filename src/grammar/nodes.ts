@@ -22,13 +22,13 @@ export interface GDStringLiteral extends GDNodeBase<GDKind.StringLiteral> {
 }
 
 export interface GDCallExpression extends GDNodeBase<GDKind.CallExpression> {
-  arguments: GDNodeBase[]
-  callee: GDNodeBase
+  arguments: GDNode[]
+  callee: GDNode
 }
 
 export interface GDUnaryExpression extends GDNodeBase<GDKind.UnaryExpression> {
-  operator: GDNodeBase
-  expression: GDNodeBase
+  operator: GDNode
+  expression: GDNode
 }
 
 export interface GDBinaryExpression
@@ -105,4 +105,9 @@ export interface GDVariableDeclaration
 
 export interface GDFragment extends GDNodeBase<GDKind.Fragment> {
   statements: GDNode[]
+}
+
+export interface GDExpressionStatement
+  extends GDNodeBase<GDKind.ExpressionStatement> {
+  expression: GDNode
 }

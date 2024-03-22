@@ -20,30 +20,26 @@ if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest
 
   test('property access', () => {
-    expect('foo.bar').toParseStatements([
-      {
-        kind: GDKind.PropertyAccessExpression,
-        object: { kind: GDKind.Identifier, name: 'foo' },
-        property: { kind: GDKind.Identifier, name: 'bar' },
-      },
-    ])
+    expect('foo.bar').toParseExpression({
+      kind: GDKind.PropertyAccessExpression,
+      object: { kind: GDKind.Identifier, name: 'foo' },
+      property: { kind: GDKind.Identifier, name: 'bar' },
+    })
   })
 
   test('deeply nested', () => {
-    expect('foo.bar.baz.qux').toParseStatements([
-      {
+    expect('foo.bar.baz.qux').toParseExpression({
+      kind: GDKind.PropertyAccessExpression,
+      object: {
         kind: GDKind.PropertyAccessExpression,
         object: {
           kind: GDKind.PropertyAccessExpression,
-          object: {
-            kind: GDKind.PropertyAccessExpression,
-            object: { kind: GDKind.Identifier, name: 'foo' },
-            property: { kind: GDKind.Identifier, name: 'bar' },
-          },
-          property: { kind: GDKind.Identifier, name: 'baz' },
+          object: { kind: GDKind.Identifier, name: 'foo' },
+          property: { kind: GDKind.Identifier, name: 'bar' },
         },
-        property: { kind: GDKind.Identifier, name: 'qux' },
+        property: { kind: GDKind.Identifier, name: 'baz' },
       },
-    ])
+      property: { kind: GDKind.Identifier, name: 'qux' },
+    })
   })
 }

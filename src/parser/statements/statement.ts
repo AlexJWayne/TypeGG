@@ -10,14 +10,14 @@ import { parseReturnStatement } from './returnStatement'
 import { parseVariableStatement } from './variableStatement'
 
 export function parseStatement(statement: Node): GDNode {
+  if (statement.isKind(SyntaxKind.ExpressionStatement))
+    return parseExpressionStatement(statement)
+
   if (statement.isKind(SyntaxKind.IfStatement))
     return parseIfStatement(statement)
 
   if (statement.isKind(SyntaxKind.ReturnStatement))
     return parseReturnStatement(statement)
-
-  if (statement.isKind(SyntaxKind.ExpressionStatement))
-    return parseExpressionStatement(statement)
 
   if (statement.isKind(SyntaxKind.VariableStatement))
     return parseVariableStatement(statement)

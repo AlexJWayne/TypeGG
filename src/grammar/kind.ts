@@ -5,6 +5,7 @@ export enum GDKind {
   Class,
   ClassMethod,
   ClassProperty,
+  ExpressionStatement,
   Fragment,
   Identifier,
   IfStatement,

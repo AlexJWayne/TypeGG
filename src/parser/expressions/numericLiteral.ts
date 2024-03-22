@@ -14,14 +14,16 @@ if (import.meta.vitest) {
   const { test, expect } = import.meta.vitest
 
   test('number', () => {
-    expect('123').toParseStatements([
-      { kind: GDKind.NumericLiteral, value: 123 },
-    ])
+    expect('123').toParseExpression({
+      kind: GDKind.NumericLiteral,
+      value: 123,
+    })
   })
 
   test('float', () => {
-    expect('123.45').toParseStatements([
-      { kind: GDKind.NumericLiteral, value: 123.45 },
-    ])
+    expect('123.45').toParseExpression({
+      kind: GDKind.NumericLiteral,
+      value: 123.45,
+    })
   })
 }

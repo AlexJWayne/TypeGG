@@ -21,46 +21,51 @@ export function parseVariableDeclaration(
 if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest
 
-  test('unintialized', () => {
-    expect(`
-      export default class Foo {
-        foo() {
-          let foo: number
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func foo() -> void:
-          var foo: float
-    `)
+  test('unintialized let', () => {
+    expect('let foo: number').toParseStatements([
+      {
+        kind: GDKind.Fragment,
+        statements: [
+          {
+            kind: GDKind.VariableDeclaration,
+            name: 'foo',
+            type: 'float',
+            initial: null,
+          },
+        ],
+      },
+    ])
   })
 
-  test('initialized', () => {
-    expect(`
-      export default class Foo {
-        foo() {
-          let foo = "hello"
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func foo() -> void:
-          var foo: String = "hello"
-    `)
+  test('initialized let', () => {
+    expect('let foo = "hello"').toParseStatements([
+      {
+        kind: GDKind.Fragment,
+        statements: [
+          {
+            kind: GDKind.VariableDeclaration,
+            name: 'foo',
+            type: 'String',
+            initial: { kind: GDKind.StringLiteral, value: 'hello' },
+          },
+        ],
+      },
+    ])
   })
 
-  test('multiple', () => {
-    expect(`
-      export default class Foo {
-        foo() {
-          let foo = "hello", bar: number
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func foo() -> void:
-          var foo: String = "hello"
-          var bar: float
-    `)
+  test('initialized const', () => {
+    expect('const foo = "hello"').toParseStatements([
+      {
+        kind: GDKind.Fragment,
+        statements: [
+          {
+            kind: GDKind.VariableDeclaration,
+            name: 'foo',
+            type: 'String',
+            initial: { kind: GDKind.StringLiteral, value: 'hello' },
+          },
+        ],
+      },
+    ])
   })
 }

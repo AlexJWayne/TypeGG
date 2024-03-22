@@ -16,14 +16,16 @@ if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest
 
   test('true', () => {
-    expect('true').toParseStatements([
-      { kind: GDKind.BooleanLiteral, value: true },
-    ])
+    expect('true').toParseExpression({
+      kind: GDKind.BooleanLiteral,
+      value: true,
+    })
   })
 
   test('false', () => {
-    expect('false').toParseStatements([
-      { kind: GDKind.BooleanLiteral, value: false },
-    ])
+    expect('false').toParseExpression({
+      kind: GDKind.BooleanLiteral,
+      value: false,
+    })
   })
 }

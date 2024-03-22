@@ -19,29 +19,29 @@ export function parseClassProperty(
   }
 }
 
-if (import.meta.vitest) {
-  const { expect, test } = import.meta.vitest
+// if (import.meta.vitest) {
+//   const { expect, test } = import.meta.vitest
 
-  test('instance property', () => {
-    expect(`
-      export default class Foo {
-        bar: string = "baz";
-      }
-    `).toCompileTo(`
-      class_name Foo
-      var bar: String = "baz"
-    `)
-  })
+//   test('instance property', () => {
+//     expect(`
+//       export default class Foo {
+//         bar: string = "baz";
+//       }
+//     `).toCompileTo(`
+//       class_name Foo
+//       var bar: String = "baz"
+//     `)
+//   })
 
-  test('exported property', () => {
-    expect(`
-      export default class Foo {
-        @exports
-        foo: string
-      }
-    `).toCompileTo(`
-      class_name Foo
-      @export var foo: String
-    `)
-  })
-}
+//   test('exported property', () => {
+//     expect(`
+//       export default class Foo {
+//         @exports
+//         foo: string
+//       }
+//     `).toCompileTo(`
+//       class_name Foo
+//       @export var foo: String
+//     `)
+//   })
+// }

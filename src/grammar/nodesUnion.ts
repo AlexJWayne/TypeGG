@@ -26,6 +26,7 @@ export type GDNode =
   | GD.GDReturnStatement
   | GD.GDVariableDeclaration
   | GD.GDFragment
+  | GD.GDExpressionStatement
 
 export function isGDIdentifier(node: GDNode): node is GD.GDIdentifier {
   return node.kind === GDKind.Identifier
@@ -117,4 +118,10 @@ export function isGDVariableDeclaration(
 
 export function isGDFragment(node: GDNode): node is GD.GDFragment {
   return node.kind === GDKind.Fragment
+}
+
+export function isGDExpressionStatement(
+  node: GDNode,
+): node is GD.GDExpressionStatement {
+  return node.kind === GDKind.ExpressionStatement
 }

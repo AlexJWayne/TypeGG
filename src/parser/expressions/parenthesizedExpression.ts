@@ -17,15 +17,13 @@ export function parseParenthesizedExpression(
 if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest
 
-  test.only('single parentheses', () => {
-    expect('(1)').toParseStatements([
-      {
-        kind: GDKind.ParenthesizedExpression,
-        expression: {
-          kind: GDKind.NumericLiteral,
-          value: 1,
-        },
+  test('parentheses', () => {
+    expect('(1)').toParseExpression({
+      kind: GDKind.ParenthesizedExpression,
+      expression: {
+        kind: GDKind.NumericLiteral,
+        value: 1,
       },
-    ])
+    })
   })
 }

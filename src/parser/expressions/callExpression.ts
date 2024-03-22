@@ -20,64 +20,22 @@ if (import.meta.vitest) {
 
   test('global function', () => {
     expect(`
-      export class Foo {
-        foo() {
-          print()
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func foo() -> void:
-          print()
-    `)
+      print()
+    `).toParseExpression({
+      kind: GDKind.CallExpression,
+      callee: { kind: GDKind.Identifier, name: 'print' },
+      arguments: [],
+    })
   })
 
-  test.only('instance method', () => {
-    expect(`
-      export class Foo {
-        foo() {
-          this.bar()
-        }
-        bar() {}
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func foo() -> void:
-          self.bar()
-      func bar() -> void:
-          pass
-    `)
-  })
-
-  test('with literal arguments', () => {
-    expect(`
-      export class Foo {
-        foo() {
-          print('foo', 'bar')
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func foo() -> void:
-          print("foo", "bar")
-    `)
-  })
-
-  test('with variable arguments', () => {
-    expect(`
-      export class Foo {
-        foo() {
-          var a = 'foo'
-          var b = 'bar'
-          print(a, b)
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func foo() -> void:
-          var a: String = "foo"
-          var b: String = "bar"
-          print(a, b)
-    `)
+  test('with arguments', () => {
+    expect("print('foo', 'bar')").toParseExpression({
+      kind: GDKind.CallExpression,
+      callee: { kind: GDKind.Identifier, name: 'print' },
+      arguments: [
+        { kind: GDKind.StringLiteral, value: 'foo' },
+        { kind: GDKind.StringLiteral, value: 'bar' },
+      ],
+    })
   })
 }

@@ -20,13 +20,11 @@ if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest
 
   test('addition', () => {
-    expect('1 + 2').toParseStatements([
-      {
-        kind: GDKind.BinaryExpression,
-        left: { kind: GDKind.NumericLiteral, value: 1 },
-        operator: '+',
-        right: { kind: GDKind.NumericLiteral, value: 2 },
-      },
-    ])
+    expect('1 + 2').toParseExpression({
+      kind: GDKind.BinaryExpression,
+      left: { kind: GDKind.NumericLiteral, value: 1 },
+      operator: '+',
+      right: { kind: GDKind.NumericLiteral, value: 2 },
+    })
   })
 }

@@ -16,8 +16,9 @@ if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest
 
   test('string', () => {
-    expect("'foo'").toParseStatements([
-      { kind: GDKind.StringLiteral, value: 'foo' },
-    ])
+    expect("'foo'").toParseExpression({
+      kind: GDKind.StringLiteral,
+      value: 'foo',
+    })
   })
 }

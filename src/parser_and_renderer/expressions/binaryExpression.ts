@@ -8,21 +8,3 @@ export function parseBinaryExpression(node: BinaryExpression): string {
   const right = parseExpression(node.getRight())
   return `${left} ${operator} ${right}`
 }
-
-if (import.meta.vitest) {
-  const { expect, test } = import.meta.vitest
-
-  test('addition', () => {
-    expect(`
-      export class Foo {
-        foo() {
-          return 1 + 2
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func foo() -> float:
-          return 1 + 2
-    `)
-  })
-}

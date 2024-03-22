@@ -5,6 +5,8 @@ import { GDIfStatement } from '../../grammar/nodes'
 
 import { parseExpression } from '../expressions/expression'
 
+import { parseStatement } from './statement'
+
 export function parseIfStatement(statement: IfStatement): GDIfStatement {
   const thenStatement = statement.getThenStatement()
   const thenNodes =
@@ -19,9 +21,9 @@ export function parseIfStatement(statement: IfStatement): GDIfStatement {
   return {
     kind: GDKind.IfStatement,
     condition: parseExpression(statement.getExpression()),
-    thenStatements: thenNodes.map(parseExpression),
+    thenStatements: thenNodes.map(parseStatement),
     elseIfs: [], // TODO
-    elseStatements: elseStatement ? elseNodes.map(parseExpression) : null,
+    elseStatements: elseStatement ? elseNodes.map(parseStatement) : null,
   }
 }
 
@@ -29,110 +31,132 @@ if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest
 
   test('empty', () => {
-    expect(`
-      export default class Foo {
-        bar(): void {
-          if (true) {}
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func bar() -> void:
-          if true:
-              pass
-    `)
+    expect('if (true) {}').toParseStatements([
+      {
+        kind: GDKind.IfStatement,
+        condition: { kind: GDKind.BooleanLiteral, value: true },
+        thenStatements: [],
+        elseIfs: [],
+        elseStatements: null,
+      },
+    ])
   })
 
   test('return', () => {
-    expect(`
-      export default class Foo {
-        bar(): string {
-          if (true) {
-            return "bar";
-          }
-          return "baz";
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func bar() -> String:
-          if true:
-              return "bar"
-          return "baz"
-    `)
+    expect('if (true) { return "bar"; }').toParseStatements([
+      {
+        kind: GDKind.IfStatement,
+        condition: { kind: GDKind.BooleanLiteral, value: true },
+        thenStatements: [
+          {
+            kind: GDKind.ReturnStatement,
+            expression: { kind: GDKind.StringLiteral, value: 'bar' },
+          },
+        ],
+        elseIfs: [],
+        elseStatements: null,
+      },
+    ])
   })
 
   test('nested', () => {
     expect(`
-      export default class Foo {
-        bar(): void {
-          if (true) {
-            if (false) {
-              return;
-            }
-          }
+      if (true) {
+        if (false) {
+          return;
         }
       }
-    `).toCompileTo(`
-      class_name Foo
-      func bar() -> void:
-          if true:
-              if false:
-                  return
-    `)
+    `).toParseStatements([
+      {
+        kind: GDKind.IfStatement,
+        condition: { kind: GDKind.BooleanLiteral, value: true },
+        thenStatements: [
+          {
+            kind: GDKind.IfStatement,
+            condition: { kind: GDKind.BooleanLiteral, value: false },
+            thenStatements: [
+              {
+                kind: GDKind.ReturnStatement,
+                expression: null,
+              },
+            ],
+            elseIfs: [],
+            elseStatements: null,
+          },
+        ],
+        elseIfs: [],
+        elseStatements: null,
+      },
+    ])
   })
 
   test('else', () => {
     expect(`
-      export default class Foo {
-        foo(): string {
-          if (true) {
-            return "foo";
-          } else {
-            return "bar";
-          }
-        }
+      if (true) {
+        return "foo";
+      } else {
+        return "bar";
       }
-    `).toCompileTo(`
-      class_name Foo
-      func foo() -> String:
-          if true:
-              return "foo"
-          else:
-              return "bar"
-    `)
+    `).toParseStatements([
+      {
+        kind: GDKind.IfStatement,
+        condition: { kind: GDKind.BooleanLiteral, value: true },
+        thenStatements: [
+          {
+            kind: GDKind.ReturnStatement,
+            expression: { kind: GDKind.StringLiteral, value: 'foo' },
+          },
+        ],
+        elseIfs: [],
+        elseStatements: [
+          {
+            kind: GDKind.ReturnStatement,
+            expression: { kind: GDKind.StringLiteral, value: 'bar' },
+          },
+        ],
+      },
+    ])
   })
 
   test('without braces', () => {
-    expect(`
-      export default class Foo {
-        bar(): void {
-          if (true) return;
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func bar() -> void:
-          if true:
-              return
-    `)
+    expect('if (true) return').toParseStatements([
+      {
+        kind: GDKind.IfStatement,
+        condition: { kind: GDKind.BooleanLiteral, value: true },
+        thenStatements: [
+          {
+            kind: GDKind.ReturnStatement,
+            expression: null,
+          },
+        ],
+        elseIfs: [],
+        elseStatements: null,
+      },
+    ])
   })
 
   test('else without braces', () => {
     expect(`
-      export default class Foo {
-        bar(): void {
-          if (true) return 123;
-          else return 456;
-        }
-      }
-    `).toCompileTo(`
-      class_name Foo
-      func bar() -> void:
-          if true:
-              return 123
-          else:
-              return 456
-    `)
+      if (true) return 123;
+      else return 456;
+    `).toParseStatements([
+      {
+        kind: GDKind.IfStatement,
+        condition: { kind: GDKind.BooleanLiteral, value: true },
+        thenStatements: [
+          {
+            kind: GDKind.ReturnStatement,
+            expression: { kind: GDKind.NumericLiteral, value: 123 },
+          },
+        ],
+        elseIfs: [],
+        elseStatements: [
+          {
+            kind: GDKind.ReturnStatement,
+            expression: { kind: GDKind.NumericLiteral, value: 456 },
+          },
+        ],
+      },
+    ])
   })
 }

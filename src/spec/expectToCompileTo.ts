@@ -1,6 +1,7 @@
 import { Project } from 'ts-morph'
 import { expect } from 'vitest'
 
+import { GDKind } from '../grammar/kind'
 import { GDNode } from '../grammar/nodesUnion'
 import { parseTsFile } from '../parser/parseTsFile'
 import { parseStatement } from '../parser/statements/statement'
@@ -39,9 +40,7 @@ expect.extend({
   },
 
   toParseStatements(received: string, expected: GDNode[]) {
-    const project = new Project({ useInMemoryFileSystem: true })
-    const file = project.createSourceFile('test.ts', received)
-    const statements = file.getStatements().map(parseStatement)
+    const statements = getStatements(received)
 
     return {
       pass: JSON.stringify(statements) === JSON.stringify(expected),
@@ -50,7 +49,42 @@ expect.extend({
       actual: statements,
     }
   },
+
+  toParseExpression(received: string, expected: GDNode) {
+    const statements = getStatements(received)
+
+    const isOneStatement = statements.length === 1
+    if (!isOneStatement) {
+      return {
+        pass: false,
+        message: () =>
+          `expected 1 expression statement, ${statements.length} statements were parsed.`,
+      }
+    }
+
+    const statement = statements[0]
+    const isExpressionStatement = statement.kind === GDKind.ExpressionStatement
+    if (!isExpressionStatement) {
+      return {
+        pass: false,
+        message: () =>
+          `expected an expression statement, got ${GDKind[statement.kind]}.`,
+      }
+    }
+
+    return {
+      pass: JSON.stringify(statement.expression) === JSON.stringify(expected),
+      message: () =>
+        `expected${this.isNot ? ' not' : ''} to parse to expression`,
+    }
+  },
 })
+
+function getStatements(tsSource: string): GDNode[] {
+  const project = new Project({ useInMemoryFileSystem: true })
+  const file = project.createSourceFile('test.ts', tsSource)
+  return file.getStatements().map(parseStatement)
+}
 
 function removeEmptyLines(gdScript: string): string {
   return gdScript
