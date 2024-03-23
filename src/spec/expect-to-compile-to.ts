@@ -145,6 +145,8 @@ expect.extend({
       pass: this.equals(statement.expression, expected),
       message: () =>
         `expected${this.isNot ? ' not' : ''} to parse to expression`,
+      expected,
+      actual: statement.expression,
     }
   },
 })

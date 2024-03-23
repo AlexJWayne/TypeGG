@@ -11,6 +11,7 @@ import { parseNumericLiteral } from './numeric-literal'
 import { parseParenthesizedExpression } from './parenthesized-expression'
 import { parseStringLiteral } from './parse-string-literal'
 import { parsePropertyAccessExpression } from './property-access-expression'
+import { parseTemplateExpression } from './template-expression'
 import { parseThisExpression } from './this-expression'
 
 export function parseExpression(node: Node) {
@@ -43,7 +44,13 @@ export function parseExpression(node: Node) {
       return parsePropertyAccessExpression(node)
 
     case node.isKind(SyntaxKind.StringLiteral):
+    case node.isKind(SyntaxKind.TemplateHead):
+    case node.isKind(SyntaxKind.TemplateMiddle):
+    case node.isKind(SyntaxKind.TemplateTail):
       return parseStringLiteral(node)
+
+    case node.isKind(SyntaxKind.TemplateExpression):
+      return parseTemplateExpression(node)
 
     case node.isKind(SyntaxKind.ThisKeyword):
       return parseThisExpression(node)
