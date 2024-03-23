@@ -4,7 +4,7 @@ import { GDKind } from '../../grammar/kind'
 import { GDClassMethod } from '../../grammar/nodes'
 import { getGdType } from '../../util/getGdType'
 
-import { parseExpression } from '../expressions/expression'
+import { parseStatement } from '../statements/statement'
 
 import { parseParameter } from './parameter'
 
@@ -15,6 +15,6 @@ export function parseMethod(methodNode: MethodDeclaration): GDClassMethod {
     isStatic: methodNode.isStatic(),
     returnType: getGdType(methodNode.getReturnType()),
     parameters: methodNode.getParameters().map(parseParameter),
-    statements: methodNode.getStatements().map(parseExpression),
+    statements: methodNode.getStatements().map(parseStatement),
   }
 }
