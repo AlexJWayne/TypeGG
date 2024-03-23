@@ -8,7 +8,7 @@ import { renderTypeAnnotation } from './typeAnnotation'
 
 export function renderMethod(method: GDClassMethod): string {
   const parametersString = method.parameters
-    .map(({ name, type }) => [name, renderTypeAnnotation(type)].join(''))
+    .map(({ name, type }) => `${name}${renderTypeAnnotation(type)}`)
     .join(', ')
 
   const statementsString =

@@ -11,10 +11,10 @@ func launch() -> void:
             print("hello moon")
             if true:
                 self.fly()
-,
+
 func fly() -> void:
     var celestialBody: String = "moon"
     print()
-,
+
 func _ready() -> void:
     self.launch()

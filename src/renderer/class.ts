@@ -14,6 +14,7 @@ export function renderClass(classNode: GDClass): string {
     classNode.properties.map(renderClassProperty),
     classNode.methods.map(renderMethod),
   ]
+    .flat()
     .filter((ln) => ln)
     .join('')
 }
