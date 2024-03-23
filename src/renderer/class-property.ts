@@ -2,6 +2,7 @@ import { GDKind } from '../grammar/kind'
 import { GDClassProperty } from '../grammar/nodes'
 import { line } from '../util/line'
 
+import { renderExpression } from './expression'
 import { renderTypeAnnotation } from './type-annotation'
 
 export function renderClassProperty(classProperty: GDClassProperty): string {
@@ -9,7 +10,7 @@ export function renderClassProperty(classProperty: GDClassProperty): string {
     classProperty.isExported && '@export ',
     `var ${classProperty.name}`,
     renderTypeAnnotation(classProperty.type),
-    classProperty.initial && ` = ${classProperty.initial}`,
+    classProperty.initial && ` = ${renderExpression(classProperty.initial)}`,
   )
 }
 
@@ -41,6 +42,20 @@ if (import.meta.vitest) {
       }),
     ).toEqualGdScript(`
       @export var foo: String
+    `)
+  })
+
+  test('initial', () => {
+    expect(
+      renderClassProperty({
+        kind: GDKind.ClassProperty,
+        name: 'foo',
+        type: 'String',
+        initial: { kind: GDKind.StringLiteral, value: 'baz' },
+        isExported: false,
+      }),
+    ).toEqualGdScript(`
+      var foo: String = "baz"
     `)
   })
 }
