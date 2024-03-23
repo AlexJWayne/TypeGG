@@ -4,7 +4,7 @@ import { indent } from '../util/indent'
 import { line } from '../util/line'
 
 import { renderStatement } from './statement'
-import { renderTypeAnnotation } from './typeAnnotation'
+import { renderTypeAnnotation } from './type-annotation'
 
 export function renderMethod(method: GDClassMethod): string {
   const parametersString = method.parameters

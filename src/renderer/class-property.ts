@@ -2,7 +2,7 @@ import { GDKind } from '../grammar/kind'
 import { GDClassProperty } from '../grammar/nodes'
 import { line } from '../util/line'
 
-import { renderTypeAnnotation } from './typeAnnotation'
+import { renderTypeAnnotation } from './type-annotation'
 
 export function renderClassProperty(classProperty: GDClassProperty): string {
   return line(

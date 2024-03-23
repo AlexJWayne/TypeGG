@@ -1,13 +1,13 @@
 import { Node, SyntaxKind } from 'ts-morph'
 
 import { GDKind } from '../../grammar/kind'
-import { GDNode } from '../../grammar/nodesUnion'
+import type { GDNode } from '../../grammar/nodes-union'
 import { printAstTree } from '../../util/debug'
 
-import { parseExpressionStatement } from './expressionStatement'
-import { parseIfStatement } from './ifStatement'
-import { parseReturnStatement } from './returnStatement'
-import { parseVariableStatement } from './variableStatement'
+import { parseExpressionStatement } from './expression-statement'
+import { parseIfStatement } from './if-statement'
+import { parseReturnStatement } from './return-statement'
+import { parseVariableStatement } from './variable-statement'
 
 export function parseStatement(statement: Node): GDNode {
   switch (true) {

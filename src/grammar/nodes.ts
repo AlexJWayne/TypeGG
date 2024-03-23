@@ -1,5 +1,5 @@
 import { GDKind } from './kind'
-import { GDNode } from './nodesUnion'
+import { GDNode } from './nodes-union'
 
 export interface GDNodeBase<T extends GDKind = GDKind> {
   kind: T

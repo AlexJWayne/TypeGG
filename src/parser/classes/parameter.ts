@@ -2,7 +2,7 @@ import { ParameterDeclaration } from 'ts-morph'
 
 import { GDKind } from '../../grammar/kind'
 import { GDParameter } from '../../grammar/nodes'
-import { getGdType } from '../../util/getGdType'
+import { getGdType } from '../../util/get-gd-type'
 
 export function parseParameter(parameter: ParameterDeclaration): GDParameter {
   return {

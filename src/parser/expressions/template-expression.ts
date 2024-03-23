@@ -1,7 +1,7 @@
 import { TemplateExpression } from 'ts-morph'
 
 import { parseExpression } from './expression'
-import { parseStringLiteral } from './parseStringLiteral'
+import { parseStringLiteral } from './parse-string-literal'
 
 // TODO
 export function parseTemplateExpression(

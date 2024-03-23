@@ -1,6 +1,6 @@
 import { GDKind } from '../grammar/kind'
 import {
-  GDNode,
+  type GDNode,
   isGDBinaryExpression,
   isGDBooleanLiteral,
   isGDCallExpression,
@@ -11,18 +11,18 @@ import {
   isGDPropertyAccessExpression,
   isGDSelfKeyword,
   isGDStringLiteral,
-} from '../grammar/nodesUnion'
+} from '../grammar/nodes-union'
 
-import { renderBinaryExpression } from './binaryExpression'
-import { renderBooleanLiteral } from './booleanLiteral'
-import { renderCallExpression } from './callExpression'
+import { renderBinaryExpression } from './binary-expression'
+import { renderBooleanLiteral } from './boolean-literal'
+import { renderCallExpression } from './call-expression'
 import { renderIdentifier } from './identifier'
-import { renderNullKeyword } from './nullKeyword'
-import { renderNumericLiteral } from './numericLiteral'
-import { renderParenthesizedExpression } from './parenthesizedExpression'
-import { renderPropertyAccessExpression } from './propertyAccessExpression'
-import { renderStringLiteral } from './renderStringLiteral'
-import { renderSelfKeyword } from './selfKeyword'
+import { renderNullKeyword } from './null-keyword'
+import { renderNumericLiteral } from './numeric-literal'
+import { renderParenthesizedExpression } from './parenthesized-expression'
+import { renderPropertyAccessExpression } from './property-access-expression'
+import { renderSelfKeyword } from './self-keyword'
+import { renderStringLiteral } from './string-literal'
 
 export function renderExpression(expression: GDNode): string {
   switch (true) {

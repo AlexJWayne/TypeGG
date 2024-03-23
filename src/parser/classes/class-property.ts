@@ -2,7 +2,7 @@ import { PropertyDeclaration } from 'ts-morph'
 
 import { GDKind } from '../../grammar/kind'
 import { GDClassProperty } from '../../grammar/nodes'
-import { getGdType } from '../../util/getGdType'
+import { getGdType } from '../../util/get-gd-type'
 
 import { parseExpression } from '../expressions/expression'
 

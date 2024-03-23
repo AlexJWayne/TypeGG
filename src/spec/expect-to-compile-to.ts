@@ -2,8 +2,8 @@ import { Project } from 'ts-morph'
 import { expect } from 'vitest'
 
 import { GDKind } from '../grammar/kind'
-import { GDNode } from '../grammar/nodesUnion'
-import { parseTsFile } from '../parser/parseTsFile'
+import type { GDNode } from '../grammar/nodes-union'
+import { parseTsFile } from '../parser/parse-ts-file'
 import { parseStatement } from '../parser/statements/statement'
 
 expect.extend({

@@ -3,7 +3,7 @@ import { ClassDeclaration, SyntaxKind } from 'ts-morph'
 import { GDKind } from '../../grammar/kind'
 import { GDClass } from '../../grammar/nodes'
 
-import { parseClassProperty } from './classProperty'
+import { parseClassProperty } from './class-property'
 import { parseMethod } from './method'
 
 export function parseClass(classNode: ClassDeclaration): GDClass {

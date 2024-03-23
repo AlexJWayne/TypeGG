@@ -2,7 +2,7 @@ import { MethodDeclaration } from 'ts-morph'
 
 import { GDKind } from '../../grammar/kind'
 import { GDClassMethod } from '../../grammar/nodes'
-import { getGdType } from '../../util/getGdType'
+import { getGdType } from '../../util/get-gd-type'
 
 import { parseStatement } from '../statements/statement'
 

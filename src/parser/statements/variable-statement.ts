@@ -3,7 +3,7 @@ import { VariableStatement } from 'ts-morph'
 import { GDKind } from '../../grammar/kind'
 import { GDFragment } from '../../grammar/nodes'
 
-import { parseVariableDeclaration } from './variableDeclaration'
+import { parseVariableDeclaration } from './variable-declaration'
 
 export function parseVariableStatement(
   variableStatement: VariableStatement,

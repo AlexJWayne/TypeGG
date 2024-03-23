@@ -3,14 +3,14 @@ import { Node, SyntaxKind } from 'ts-morph'
 import { GDKind } from '../../grammar/kind'
 import { printAstTree } from '../../util/debug'
 
-import { parseBinaryExpression } from './binaryExpression'
-import { parseBooleanLiteral } from './booleanLiteral'
-import { parseCallExpression } from './callExpression'
+import { parseBinaryExpression } from './binary-expression'
+import { parseBooleanLiteral } from './boolean-literal'
+import { parseCallExpression } from './call-expression'
 import { parseIdentifier } from './identifier'
-import { parseNumericLiteral } from './numericLiteral'
-import { parseParenthesizedExpression } from './parenthesizedExpression'
-import { parseStringLiteral } from './parseStringLiteral'
-import { parsePropertyAccessExpression } from './propertyAccessExpression'
+import { parseNumericLiteral } from './numeric-literal'
+import { parseParenthesizedExpression } from './parenthesized-expression'
+import { parseStringLiteral } from './parse-string-literal'
+import { parsePropertyAccessExpression } from './property-access-expression'
 
 export function parseExpression(node: Node) {
   switch (true) {

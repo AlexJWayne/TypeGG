@@ -3,7 +3,7 @@ import { GDVariableDeclaration } from '../grammar/nodes'
 import { line } from '../util/line'
 
 import { renderExpression } from './expression'
-import { renderTypeAnnotation } from './typeAnnotation'
+import { renderTypeAnnotation } from './type-annotation'
 
 export function renderVariableDeclaration(node: GDVariableDeclaration): string {
   return line(

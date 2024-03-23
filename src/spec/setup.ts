@@ -1,1 +1,1 @@
-import './expectToCompileTo'
+import './expect-to-compile-to'

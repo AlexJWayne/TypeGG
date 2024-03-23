@@ -20,8 +20,8 @@ function main() {
     .filter((name) => name !== 'GDNodeBase')
 
   const nodesUnionFile =
-    project.getSourceFile('src/grammar/nodesUnion.ts') ||
-    project.createSourceFile('src/grammar/nodesUnion.ts')
+    project.getSourceFile('src/grammar/nodes-union.ts') ||
+    project.createSourceFile('src/grammar/nodes-union.ts')
 
   nodesUnionFile.removeText()
 
@@ -58,7 +58,7 @@ function main() {
   nodesUnionFile.saveSync()
 
   // run prettier on the generated file
-  spawnSync('prettier', ['--write', 'src/grammar/nodesUnion.ts'])
+  spawnSync('prettier', ['--write', 'src/grammar/nodes-union.ts'])
 }
 
 main()

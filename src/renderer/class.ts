@@ -2,7 +2,7 @@ import { GDKind } from '../grammar/kind'
 import { GDClass } from '../grammar/nodes'
 import { line } from '../util/line'
 
-import { renderClassProperty } from './classProperty'
+import { renderClassProperty } from './class-property'
 import { renderMethod } from './method'
 
 export function renderClass(classNode: GDClass): string {

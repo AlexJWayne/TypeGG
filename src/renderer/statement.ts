@@ -1,18 +1,18 @@
 import { GDKind } from '../grammar/kind'
 import {
-  GDNode,
+  type GDNode,
   isGDExpressionStatement,
   isGDFragment,
   isGDIfStatement,
   isGDReturnStatement,
   isGDVariableDeclaration,
-} from '../grammar/nodesUnion'
+} from '../grammar/nodes-union'
 import { renderFragment } from '../parser/expressions/fragment'
 
-import { renderExpressionStatement } from './expressionStatement'
-import { renderIfStatement } from './ifStatement'
-import { renderReturnStatement } from './returnStatement'
-import { renderVariableDeclaration } from './variableDeclaration'
+import { renderExpressionStatement } from './expression-statement'
+import { renderIfStatement } from './if-statement'
+import { renderReturnStatement } from './return-statement'
+import { renderVariableDeclaration } from './variable-declaration'
 
 export function renderStatement(statement: GDNode): string {
   switch (true) {
