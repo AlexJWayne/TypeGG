@@ -17,7 +17,7 @@ export type GDNode =
   | GD.GDClassMethod
   | GD.GDParameter
   | GD.GDParenthesizedExpression
-  | GD.GDSelfKeyword
+  | GD.GDSelfExpression
   | GD.GDIfStatement
   | GD.GDClass
   | GD.GDPropertyAccessExpression
@@ -78,8 +78,8 @@ export function isGDParenthesizedExpression(
   return node.kind === GDKind.ParenthesizedExpression
 }
 
-export function isGDSelfKeyword(node: GDNode): node is GD.GDSelfKeyword {
-  return node.kind === GDKind.SelfKeyword
+export function isGDSelfExpression(node: GDNode): node is GD.GDSelfExpression {
+  return node.kind === GDKind.SelfExpression
 }
 
 export function isGDIfStatement(node: GDNode): node is GD.GDIfStatement {

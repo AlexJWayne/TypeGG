@@ -3,7 +3,8 @@ import { expect } from 'vitest'
 
 import { GDKind } from '../grammar/kind'
 import type { GDNode } from '../grammar/nodes-union'
-import { parseTsFile } from '../parser/parse-ts-file'
+import { parseClass } from '../parser/classes/class'
+import { getTsProject, parseTsFile } from '../parser/parse-ts-file'
 import { parseStatement } from '../parser/statements/statement'
 
 expect.extend({
@@ -20,36 +21,104 @@ expect.extend({
     const expectedFinal = removeEmptyLines(trimFromEachLineStart(expectedGd))
 
     return {
-      pass: expectedFinal === receivedFinal,
+      pass: this.equals(receivedFinal, expectedFinal),
       message: () => `expected${this.isNot ? ' not' : ''} to compile to`,
       expected: expectedFinal,
       actual: receivedFinal,
     }
   },
 
+  /**
+   * Compares an expected GDScript strings to a received GDScripts string.
+   * Reindents the expected GDScript to make tests look nicer.
+   */
   toEqualGdScript(received: string, expected: string) {
     const receivedFinal = removeEmptyLines(received.trim())
     const expectedFinal = removeEmptyLines(trimFromEachLineStart(expected))
 
     return {
-      pass: expectedFinal === receivedFinal,
+      pass: this.equals(receivedFinal, expectedFinal),
       message: () => `expected${this.isNot ? ' not' : ''} to equal gd script`,
       expected: expectedFinal,
       actual: receivedFinal,
     }
   },
 
+  /** Expect the TS code to parse to a specific GDClass AST node. */
+  toParseClass(received: string, expected: GDNode) {
+    const { file } = getTsProject('test.ts', received)
+    const fileClass = file.getClasses()[0]
+    if (!fileClass) {
+      return {
+        pass: false,
+        message: () => 'expected to parse a class, but none was found',
+      }
+    }
+
+    const receivedClass = parseClass(fileClass)
+
+    return {
+      pass: this.equals(receivedClass, expected),
+      message: () => `expected${this.isNot ? ' not' : ''} to parse to class`,
+      expected,
+      actual: receivedClass,
+    }
+  },
+
+  /**
+   * Expect the TS Code to declare a class that has a method with the given name,
+   * which has the expected statements.
+   */
+  toParseMethodStatements(
+    received: string,
+    expectedMethodName: string,
+    expected: GDNode[],
+  ) {
+    const { file } = getTsProject('test.ts', received)
+    const fileClass = file.getClasses()[0]
+    if (!fileClass) {
+      return {
+        pass: false,
+        message: () => 'expected to parse a class, but none was found',
+      }
+    }
+
+    const receivedClass = parseClass(fileClass)
+    const receivedMethod = receivedClass.methods.find(
+      (node) => node.name === expectedMethodName,
+    )
+    if (!receivedMethod) {
+      return {
+        pass: false,
+        message: () => `expected to find a method named ${expectedMethodName}`,
+      }
+    }
+
+    return {
+      pass: this.equals(receivedMethod.statements, expected),
+      message: () =>
+        `expected${this.isNot ? ' not' : ''} to parse to method body`,
+      expected,
+      actual: receivedMethod.statements,
+    }
+  },
+
+  /** Expect the TS code to parse as the expected statements. */
   toParseStatements(received: string, expected: GDNode[]) {
     const statements = getStatements(received)
 
     return {
-      pass: JSON.stringify(statements) === JSON.stringify(expected),
+      pass: this.equals(statements, expected),
       message: () => `expected${this.isNot ? ' not' : ''} to parse to`,
       expected,
       actual: statements,
     }
   },
 
+  /**
+   * Expect the TS code to parse as a single GDExpressionStatement, which contains the
+   * expected expression.
+   */
   toParseExpression(received: string, expected: GDNode) {
     const statements = getStatements(received)
 
@@ -73,7 +142,7 @@ expect.extend({
     }
 
     return {
-      pass: JSON.stringify(statement.expression) === JSON.stringify(expected),
+      pass: this.equals(statement.expression, expected),
       message: () =>
         `expected${this.isNot ? ' not' : ''} to parse to expression`,
     }

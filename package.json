@@ -9,7 +9,7 @@
     "format": "prettier --write .",
     "example": "npx tsx src/transpiler/transpile",
     "example:watch": "npx tsx src/transpiler/watch",
-    "grammar": "npx tsx src/grammar/buildGrammerTypes.ts"
+    "grammar": "npx tsx src/grammar/build-grammer-types.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.28",

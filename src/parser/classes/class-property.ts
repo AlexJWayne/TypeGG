@@ -19,29 +19,51 @@ export function parseClassProperty(
   }
 }
 
-// if (import.meta.vitest) {
-//   const { expect, test } = import.meta.vitest
+if (import.meta.vitest) {
+  const { expect, test } = import.meta.vitest
 
-//   test('instance property', () => {
-//     expect(`
-//       export default class Foo {
-//         bar: string = "baz";
-//       }
-//     `).toCompileTo(`
-//       class_name Foo
-//       var bar: String = "baz"
-//     `)
-//   })
+  test('instance property', () => {
+    expect(`
+      export class Foo {
+        bar: string = "baz";
+      }
+    `).toParseClass({
+      kind: GDKind.Class,
+      extends: null,
+      name: 'Foo',
+      methods: [],
+      properties: [
+        {
+          kind: GDKind.ClassProperty,
+          name: 'bar',
+          type: 'String',
+          isExported: false,
+          initial: { kind: GDKind.StringLiteral, value: 'baz' },
+        },
+      ],
+    })
+  })
 
-//   test('exported property', () => {
-//     expect(`
-//       export default class Foo {
-//         @exports
-//         foo: string
-//       }
-//     `).toCompileTo(`
-//       class_name Foo
-//       @export var foo: String
-//     `)
-//   })
-// }
+  test('exported property', () => {
+    expect(`
+      export default class Foo {
+        @exports
+        foo: string
+      }
+    `).toParseClass({
+      kind: GDKind.Class,
+      extends: null,
+      name: 'Foo',
+      methods: [],
+      properties: [
+        {
+          kind: GDKind.ClassProperty,
+          name: 'foo',
+          type: 'String',
+          isExported: true,
+          initial: null,
+        },
+      ],
+    })
+  })
+}

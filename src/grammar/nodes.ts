@@ -63,7 +63,9 @@ export interface GDParenthesizedExpression
   expression: GDNode
 }
 
-export interface GDSelfKeyword extends GDNodeBase<GDKind.SelfKeyword> {}
+export interface GDSelfExpression extends GDNodeBase<GDKind.SelfExpression> {
+  explicit: boolean
+}
 
 export interface GDIfStatement extends GDNodeBase<GDKind.IfStatement> {
   condition: GDNode

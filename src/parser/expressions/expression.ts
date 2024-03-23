@@ -11,6 +11,7 @@ import { parseNumericLiteral } from './numeric-literal'
 import { parseParenthesizedExpression } from './parenthesized-expression'
 import { parseStringLiteral } from './parse-string-literal'
 import { parsePropertyAccessExpression } from './property-access-expression'
+import { parseThisExpression } from './this-expression'
 
 export function parseExpression(node: Node) {
   switch (true) {
@@ -45,7 +46,7 @@ export function parseExpression(node: Node) {
       return parseStringLiteral(node)
 
     case node.isKind(SyntaxKind.ThisKeyword):
-      return { kind: GDKind.SelfKeyword } as const
+      return parseThisExpression(node)
 
     case node.isKind(SyntaxKind.TrueKeyword):
       return parseBooleanLiteral(node)

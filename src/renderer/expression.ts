@@ -9,7 +9,7 @@ import {
   isGDNumericLiteral,
   isGDParenthesizedExpression,
   isGDPropertyAccessExpression,
-  isGDSelfKeyword,
+  isGDSelfExpression,
   isGDStringLiteral,
 } from '../grammar/nodes-union'
 
@@ -21,7 +21,7 @@ import { renderNullKeyword } from './null-keyword'
 import { renderNumericLiteral } from './numeric-literal'
 import { renderParenthesizedExpression } from './parenthesized-expression'
 import { renderPropertyAccessExpression } from './property-access-expression'
-import { renderSelfKeyword } from './self-keyword'
+import { renderSelfExpression } from './self-expression'
 import { renderStringLiteral } from './string-literal'
 
 export function renderExpression(expression: GDNode): string {
@@ -50,8 +50,8 @@ export function renderExpression(expression: GDNode): string {
     case isGDPropertyAccessExpression(expression):
       return renderPropertyAccessExpression(expression)
 
-    case isGDSelfKeyword(expression):
-      return renderSelfKeyword(expression)
+    case isGDSelfExpression(expression):
+      return renderSelfExpression(expression)
 
     case isGDStringLiteral(expression):
       return renderStringLiteral(expression)

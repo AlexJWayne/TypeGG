@@ -1,15 +1,20 @@
 import { GDKind } from '../grammar/kind'
 import { GDPropertyAccessExpression } from '../grammar/nodes'
+import { isGDSelfExpression } from '../grammar/nodes-union'
 
 import { renderExpression } from './expression'
 
 export function renderPropertyAccessExpression(
   node: GDPropertyAccessExpression,
 ): string {
+  const isImplicitSelf =
+    isGDSelfExpression(node.object) && !node.object.explicit
   return [
-    renderExpression(node.object), //
+    isImplicitSelf ? null : renderExpression(node.object),
     renderExpression(node.property),
-  ].join('.')
+  ]
+    .filter(Boolean)
+    .join('.')
 }
 
 if (import.meta.vitest) {
@@ -41,5 +46,25 @@ if (import.meta.vitest) {
         property: { kind: GDKind.Identifier, name: 'qux' },
       }),
     ).toEqual('foo.bar.baz.qux')
+  })
+
+  test('explicit self', () => {
+    expect(
+      renderPropertyAccessExpression({
+        kind: GDKind.PropertyAccessExpression,
+        object: { kind: GDKind.SelfExpression, explicit: true },
+        property: { kind: GDKind.Identifier, name: 'foo' },
+      }),
+    ).toEqual('self.foo')
+  })
+
+  test('implicit self', () => {
+    expect(
+      renderPropertyAccessExpression({
+        kind: GDKind.PropertyAccessExpression,
+        object: { kind: GDKind.SelfExpression, explicit: false },
+        property: { kind: GDKind.Identifier, name: 'foo' },
+      }),
+    ).toEqual('foo')
   })
 }

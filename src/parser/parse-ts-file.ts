@@ -6,13 +6,13 @@ import { parseClass } from './classes/class'
 
 export function parseTsFile(tsCode: string): string {
   // TODO: make a real project out of all TS files.
-  const { file } = getProject('temp.ts', tsCode)
+  const { file } = getTsProject('temp.ts', tsCode)
   const fileClass = getFileClass(file)
   const parsedClass = parseClass(fileClass)
   return renderClass(parsedClass)
 }
 
-function getProject(
+export function getTsProject(
   filename: string,
   tsCode: string,
 ): { project: Project; file: SourceFile } {
