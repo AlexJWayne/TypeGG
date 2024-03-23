@@ -3,6 +3,7 @@ import { GDClassMethod } from '../grammar/nodes'
 import { indent } from '../util/indent'
 import { line } from '../util/line'
 
+import { renderStatement } from './statement'
 import { renderTypeAnnotation } from './typeAnnotation'
 
 export function renderMethod(method: GDClassMethod): string {
@@ -108,22 +109,19 @@ if (import.meta.vitest) {
         parameters: [],
         statements: [
           {
-            kind: GDKind.VariableDeclaration,
-            name: 'str',
-            type: 'String',
-            initial: { kind: GDKind.StringLiteral, value: 'Hello, world!' },
+            kind: GDKind.ExpressionStatement,
+            expression: { kind: GDKind.StringLiteral, value: 'foo' },
           },
           {
-            kind: GDKind.CallExpression,
-            callee: { kind: GDKind.Identifier, name: 'print' },
-            arguments: [{ kind: GDKind.Identifier, name: 'str' }],
+            kind: GDKind.ExpressionStatement,
+            expression: { kind: GDKind.StringLiteral, value: 'bar' },
           },
         ],
       }),
     ).toEqualGdScript(`
       func foo():
-          var str: String = "Hello, world!"
-          print(str)
+          "foo"
+          "bar"
     `)
   })
 }

@@ -8,8 +8,8 @@ import { parseCallExpression } from './callExpression'
 import { parseIdentifier } from './identifier'
 import { parseNumericLiteral } from './numericLiteral'
 import { parseParenthesizedExpression } from './parenthesizedExpression'
-import { parsePropertyAccessExpression } from './parsePropertyAccessExpression'
 import { parseStringLiteral } from './parseStringLiteral'
+import { parsePropertyAccessExpression } from './propertyAccessExpression'
 import { parseTemplateExpression } from './templateExpression'
 
 export function parseExpression(node: Node): string {

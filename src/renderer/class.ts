@@ -3,6 +3,7 @@ import { GDClass } from '../grammar/nodes'
 import { line } from '../util/line'
 
 import { renderClassProperty } from './classProperty'
+import { renderMethod } from './method'
 
 export function renderClass(classNode: GDClass): string {
   return [
@@ -11,7 +12,7 @@ export function renderClass(classNode: GDClass): string {
     line(`class_name ${classNode.name}`),
     classNode.extends && line(`extends ${classNode.extends}`),
     classNode.properties.map(renderClassProperty),
-    // ...classNode.getMethods().map(parseMethod),
+    classNode.methods.map(renderMethod),
   ]
     .filter((ln) => ln)
     .join('')
