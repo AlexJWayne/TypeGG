@@ -1,9 +1,9 @@
 export class Spacehip extends Sprite2D {
   @exports
-  myProp: float = 123
+  myProp: int = 123
 
   launch() {
-    if (true) {
+    if (this.myProp) {
       print('launch')
       if (true) {
         print('hello moon')

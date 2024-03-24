@@ -2,13 +2,13 @@ import { ParameterDeclaration } from 'ts-morph'
 
 import { GDKind } from '../../grammar/kind'
 import { GDParameter } from '../../grammar/nodes'
-import { getGdType } from '../../util/get-gd-type'
+import { getGdTypeForNode } from '../../util/get-gd-type'
 
 export function parseParameter(parameter: ParameterDeclaration): GDParameter {
   return {
     kind: GDKind.Parameter,
     name: parameter.getName(),
-    type: getGdType(parameter.getType()),
+    type: getGdTypeForNode(parameter),
   }
 }
 

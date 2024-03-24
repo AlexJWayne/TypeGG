@@ -2,10 +2,10 @@
 
 class_name Spacehip
 extends Sprite2D
-@export var myProp: float = 123
+@export var myProp: int = 123
 
 func launch() -> void:
-    if true:
+    if self.myProp:
         print("launch")
         if true:
             print("hello moon")

@@ -103,8 +103,7 @@ declare enum ExportHint {
   LAYERS_3D_RENDER
 }
 
-declare function exports(...args: (ExportHint | string | number)[]): (target: Node, name: string) => void;
-declare function exports(target: Node, name: string): void;
+declare function exports(target: unknown, context: ClassFieldDecoratorContext): void
 declare const export_flags: (...flags: any[]) => (target: Node, name: string) => void
 declare function autoload(target: typeof Node): void
 declare function tool(target: typeof Node): void;

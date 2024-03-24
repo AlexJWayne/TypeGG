@@ -2,7 +2,7 @@ import { PropertyDeclaration } from 'ts-morph'
 
 import { GDKind } from '../../grammar/kind'
 import { GDClassProperty } from '../../grammar/nodes'
-import { getGdType } from '../../util/get-gd-type'
+import { getGdTypeForNode } from '../../util/get-gd-type'
 
 import { parseExpression } from '../expressions/expression'
 
@@ -10,10 +10,11 @@ export function parseClassProperty(
   propertyNode: PropertyDeclaration,
 ): GDClassProperty {
   const initializer = propertyNode.getInitializer()
+
   return {
     kind: GDKind.ClassProperty,
     name: propertyNode.getName(),
-    type: getGdType(propertyNode.getType()),
+    type: getGdTypeForNode(propertyNode),
     isExported: !!propertyNode.getDecorator('exports'),
     initial: initializer ? parseExpression(initializer) : null,
   }
