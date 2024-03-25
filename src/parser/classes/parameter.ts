@@ -17,13 +17,27 @@ if (import.meta.vitest) {
 
   test('parameters', () => {
     expect(`
-      export default class Foo {
+      export class Foo {
         bar(isBaz: boolean, myStr: string) {}
       }
-    `).toCompileTo(`
-      class_name Foo
-      func bar(isBaz: bool, myStr: String) -> void:
-          pass
-    `)
+    `).toParseClass({
+      kind: GDKind.Class,
+      name: 'Foo',
+      extends: null,
+      properties: [],
+      methods: [
+        {
+          kind: GDKind.ClassMethod,
+          isStatic: false,
+          name: 'bar',
+          parameters: [
+            { kind: GDKind.Parameter, name: 'isBaz', type: 'bool' },
+            { kind: GDKind.Parameter, name: 'myStr', type: 'String' },
+          ],
+          returnType: 'void',
+          statements: [],
+        },
+      ],
+    })
   })
 }
