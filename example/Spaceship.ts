@@ -2,6 +2,9 @@ export class Spacehip extends Sprite2D {
   @exports
   myProp: int = 123
 
+  onFoo: Signal
+  onBar: Signal<(bar: string, baz: int) => boolean>
+
   launch() {
     if (this.myProp) {
       print('launch')
@@ -18,6 +21,9 @@ export class Spacehip extends Sprite2D {
     const celestialBody = 'moon'
     print(`fly me to the ${celestialBody}!
 And Back`)
+
+    this.onFoo.emit()
+    this.onFoo.connect(this.launch)
   }
 
   protected _ready(): void {

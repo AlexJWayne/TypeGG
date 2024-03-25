@@ -3,13 +3,11 @@ import { GDClassMethod } from '../grammar/nodes'
 import { indent } from '../util/indent'
 import { line } from '../util/line'
 
+import { renderParameter } from './renderParameter'
 import { renderStatement } from './statement'
-import { renderTypeAnnotation } from './type-annotation'
 
 export function renderMethod(method: GDClassMethod): string {
-  const parametersString = method.parameters
-    .map(({ name, type }) => `${name}${renderTypeAnnotation(type)}`)
-    .join(', ')
+  const parametersString = method.parameters.map(renderParameter).join(', ')
 
   const statementsString =
     method.statements.length > 0

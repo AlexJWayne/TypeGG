@@ -15,6 +15,7 @@ export enum GDKind {
   ParenthesizedExpression,
   PropertyAccessExpression,
   ReturnStatement,
+  Signal,
   SelfExpression,
   StringLiteral,
   UnaryExpression,

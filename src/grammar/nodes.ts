@@ -34,7 +34,7 @@ export interface GDUnaryExpression extends GDNodeBase<GDKind.UnaryExpression> {
 export interface GDBinaryExpression
   extends GDNodeBase<GDKind.BinaryExpression> {
   left: GDNode
-  operator: string // ???
+  operator: string
   right: GDNode
 }
 
@@ -80,7 +80,7 @@ export interface GDIfStatement extends GDNodeBase<GDKind.IfStatement> {
 export interface GDClass extends GDNodeBase<GDKind.Class> {
   name: string
   extends: string | null
-  properties: GDClassProperty[]
+  properties: (GDClassProperty | GDSignal)[]
   methods: GDClassMethod[]
 }
 
@@ -112,4 +112,9 @@ export interface GDFragment extends GDNodeBase<GDKind.Fragment> {
 export interface GDExpressionStatement
   extends GDNodeBase<GDKind.ExpressionStatement> {
   expression: GDNode
+}
+
+export interface GDSignal extends GDNodeBase<GDKind.Signal> {
+  name: string
+  parameters: GDParameter[]
 }
