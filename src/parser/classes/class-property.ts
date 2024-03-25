@@ -1,4 +1,3 @@
-import { describe } from 'node:test'
 import { PropertyDeclaration, SyntaxKind } from 'ts-morph'
 
 import { GDKind } from '../../grammar/kind'
@@ -40,7 +39,7 @@ function isSignal(propertyNode: PropertyDeclaration): boolean {
 }
 
 if (import.meta.vitest) {
-  const { expect, test } = import.meta.vitest
+  const { describe, expect, test } = import.meta.vitest
 
   test('instance property', () => {
     expect(`
