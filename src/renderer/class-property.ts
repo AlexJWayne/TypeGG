@@ -4,20 +4,13 @@ import { isGDSignal } from '../grammar/nodes-union'
 import { line } from '../util/line'
 
 import { renderExpression } from './expression'
-import { renderParameter } from './renderParameter'
+import { renderSignal } from './signal'
 import { renderTypeAnnotation } from './type-annotation'
 
 export function renderClassProperty(
   classProperty: GDClassProperty | GDSignal,
 ): string {
-  if (isGDSignal(classProperty)) {
-    // TODO: Move to another file
-    return line(
-      `signal ${classProperty.name}`,
-      classProperty.parameters.length > 0 &&
-        `(${classProperty.parameters.map(renderParameter).join(', ')})`,
-    )
-  }
+  if (isGDSignal(classProperty)) return renderSignal(classProperty)
 
   return line(
     classProperty.isExported && '@export ',

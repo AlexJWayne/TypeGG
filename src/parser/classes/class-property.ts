@@ -1,4 +1,4 @@
-import { PropertyDeclaration, SyntaxKind } from 'ts-morph'
+import { PropertyDeclaration } from 'ts-morph'
 
 import { GDKind } from '../../grammar/kind'
 import { GDClassProperty, GDSignal } from '../../grammar/nodes'
@@ -6,23 +6,12 @@ import { getGdTypeForNode } from '../../util/get-gd-type'
 
 import { parseExpression } from '../expressions/expression'
 
-import { parseParameter } from './parameter'
+import { isSignal, parseSignal } from './signal'
 
 export function parseClassProperty(
   propertyNode: PropertyDeclaration,
 ): GDClassProperty | GDSignal {
-  if (isSignal(propertyNode)) {
-    // TODO: Move to another file
-    return {
-      kind: GDKind.Signal,
-      name: propertyNode.getName(),
-      parameters:
-        propertyNode
-          .getFirstDescendantByKind(SyntaxKind.FunctionType)
-          ?.getParameters()
-          .map(parseParameter) ?? [],
-    }
-  }
+  if (isSignal(propertyNode)) return parseSignal(propertyNode)
 
   const initializer = propertyNode.getInitializer()
   return {
@@ -32,10 +21,6 @@ export function parseClassProperty(
     isExported: !!propertyNode.getDecorator('exports'),
     initial: initializer ? parseExpression(initializer) : null,
   }
-}
-
-function isSignal(propertyNode: PropertyDeclaration): boolean {
-  return propertyNode.getType().getTargetType()?.getText() === 'Signal<T>'
 }
 
 if (import.meta.vitest) {
