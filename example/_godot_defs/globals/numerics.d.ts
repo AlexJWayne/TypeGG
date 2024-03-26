@@ -1,4 +1,4 @@
-declare type int = number
+declare type int = number & { __brand__?: 'int' }
 declare type float = number
 
 declare function int(x: int | float): int

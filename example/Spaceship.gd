@@ -3,6 +3,9 @@
 class_name Spacehip
 extends Sprite2D
 @export var myProp: int = 123
+var myInts: Array[int]
+var myNodes: Array[Node]
+var myNodes2: Array[Node]
 signal onFoo
 signal onBar(bar: String, baz: int)
 

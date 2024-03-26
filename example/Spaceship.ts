@@ -1,6 +1,13 @@
+const a: float = 1
+const b: int = a
+
 export class Spacehip extends Sprite2D {
   @exports
   myProp: int = 123
+
+  myInts: int[]
+  myNodes: Node[]
+  myNodes2: Array<Node>
 
   onFoo: Signal
   onBar: Signal<(bar: string, baz: int) => boolean>
