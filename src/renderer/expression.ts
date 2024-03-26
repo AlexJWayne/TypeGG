@@ -1,6 +1,7 @@
 import { GDKind } from '../grammar/kind'
 import {
   type GDNode,
+  isGDArrayLiteral,
   isGDBinaryExpression,
   isGDBooleanLiteral,
   isGDCallExpression,
@@ -13,6 +14,7 @@ import {
   isGDStringLiteral,
 } from '../grammar/nodes-union'
 
+import { renderArrayLiteral } from './array-literal'
 import { renderBinaryExpression } from './binary-expression'
 import { renderBooleanLiteral } from './boolean-literal'
 import { renderCallExpression } from './call-expression'
@@ -26,6 +28,9 @@ import { renderStringLiteral } from './string-literal'
 
 export function renderExpression(expression: GDNode): string {
   switch (true) {
+    case isGDArrayLiteral(expression):
+      return renderArrayLiteral(expression)
+
     case isGDBinaryExpression(expression):
       return renderBinaryExpression(expression)
 

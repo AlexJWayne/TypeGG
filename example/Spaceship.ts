@@ -5,7 +5,7 @@ export class Spacehip extends Sprite2D {
   @exports
   myProp: int = 123
 
-  myInts: int[]
+  myInts: int[] = [1, 2, 3]
   myNodes: Node[]
   myNodes2: Array<Node>
 

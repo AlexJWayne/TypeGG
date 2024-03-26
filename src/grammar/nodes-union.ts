@@ -28,6 +28,7 @@ export type GDNode =
   | GD.GDFragment
   | GD.GDExpressionStatement
   | GD.GDSignal
+  | GD.GDArrayLiteral
 
 export function isGDIdentifier(node: GDNode): node is GD.GDIdentifier {
   return node.kind === GDKind.Identifier
@@ -129,4 +130,8 @@ export function isGDExpressionStatement(
 
 export function isGDSignal(node: GDNode): node is GD.GDSignal {
   return node.kind === GDKind.Signal
+}
+
+export function isGDArrayLiteral(node: GDNode): node is GD.GDArrayLiteral {
+  return node.kind === GDKind.ArrayLiteral
 }

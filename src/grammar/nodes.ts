@@ -118,3 +118,7 @@ export interface GDSignal extends GDNodeBase<GDKind.Signal> {
   name: string
   parameters: GDParameter[]
 }
+
+export interface GDArrayLiteral extends GDNodeBase<GDKind.ArrayLiteral> {
+  elements: GDNode[]
+}

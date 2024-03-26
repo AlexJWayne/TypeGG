@@ -1,4 +1,5 @@
 export enum GDKind {
+  ArrayLiteral,
   BinaryExpression,
   BooleanLiteral,
   CallExpression,

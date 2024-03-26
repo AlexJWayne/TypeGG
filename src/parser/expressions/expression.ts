@@ -3,6 +3,7 @@ import { Node, SyntaxKind } from 'ts-morph'
 import { GDKind } from '../../grammar/kind'
 import { printAstTree } from '../../util/debug'
 
+import { parseArrayLiteral } from './array-literal'
 import { parseBinaryExpression } from './binary-expression'
 import { parseBooleanLiteral } from './boolean-literal'
 import { parseCallExpression } from './call-expression'
@@ -16,6 +17,9 @@ import { parseThisExpression } from './this-expression'
 
 export function parseExpression(node: Node) {
   switch (true) {
+    case node.isKind(SyntaxKind.ArrayLiteralExpression):
+      return parseArrayLiteral(node)
+
     case node.isKind(SyntaxKind.BinaryExpression):
       return parseBinaryExpression(node)
 
