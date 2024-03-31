@@ -2,6 +2,7 @@
 
 class_name NodeTreeUtil
 
+
 static func findAcestorByName(node: Node, name: String) -> Node | null:
     var foundNode: Node = node.get_node(name)
     if foundNode:
@@ -10,3 +11,4 @@ static func findAcestorByName(node: Node, name: String) -> Node | null:
     if parent:
         return NodeTreeUtil.findAcestorByName(parent, name)
     return null
+

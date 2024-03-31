@@ -2,12 +2,16 @@
 
 class_name Spacehip
 extends Sprite2D
+
+signal onFoo
+signal onBar(bar: String, baz: int)
+
 @export var myProp: int = 123
 var myInts: Array[int] = [1, 2, 3]
 var myNodes: Array[Node]
 var myNodes2: Array[Node]
-signal onFoo
-signal onBar(bar: String, baz: int)
+@onready var mySprite: Sprite2D = self.get_node_unsafe("MySprite2D")
+
 
 func launch() -> void:
     if self.myProp:
@@ -25,3 +29,4 @@ func fly() -> void:
 
 func _ready() -> void:
     self.launch()
+

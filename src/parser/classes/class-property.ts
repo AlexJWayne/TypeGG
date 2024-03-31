@@ -19,6 +19,7 @@ export function parseClassProperty(
     name: propertyNode.getName(),
     type: getGdTypeForNode(propertyNode),
     isExported: !!propertyNode.getDecorator('exports'),
+    isOnReady: !!propertyNode.getDecorator('onready'),
     initial: initializer ? parseExpression(initializer) : null,
   }
 }
@@ -42,13 +43,14 @@ if (import.meta.vitest) {
           name: 'bar',
           type: 'String',
           isExported: false,
+          isOnReady: false,
           initial: { kind: GDKind.StringLiteral, value: 'baz' },
         },
       ],
     })
   })
 
-  test('exported property', () => {
+  test('exported', () => {
     expect(`
       export default class Foo {
         @exports
@@ -65,6 +67,31 @@ if (import.meta.vitest) {
           name: 'foo',
           type: 'String',
           isExported: true,
+          isOnReady: false,
+          initial: null,
+        },
+      ],
+    })
+  })
+
+  test('onready', () => {
+    expect(`
+      export class Foo {
+        @onready
+        bar: string
+      }
+    `).toParseClass({
+      kind: GDKind.Class,
+      extends: null,
+      name: 'Foo',
+      methods: [],
+      properties: [
+        {
+          kind: GDKind.ClassProperty,
+          name: 'bar',
+          type: 'String',
+          isExported: false,
+          isOnReady: true,
           initial: null,
         },
       ],

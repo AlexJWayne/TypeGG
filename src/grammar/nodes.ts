@@ -42,6 +42,7 @@ export interface GDClassProperty extends GDNodeBase<GDKind.ClassProperty> {
   name: string
   type: string | null
   isExported: boolean
+  isOnReady: boolean
   initial: GDNode | null
 }
 

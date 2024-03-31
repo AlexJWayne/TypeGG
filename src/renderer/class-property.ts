@@ -14,6 +14,7 @@ export function renderClassProperty(
 
   return line(
     classProperty.isExported && '@export ',
+    classProperty.isOnReady && '@onready ',
     `var ${classProperty.name}`,
     renderTypeAnnotation(classProperty.type),
     classProperty.initial && ` = ${renderExpression(classProperty.initial)}`,
@@ -31,6 +32,7 @@ if (import.meta.vitest) {
         type: 'String',
         initial: null,
         isExported: false,
+        isOnReady: false,
       }),
     ).toEqualGdScript(`
       var bar: String
@@ -45,9 +47,25 @@ if (import.meta.vitest) {
         type: 'String',
         initial: null,
         isExported: true,
+        isOnReady: false,
       }),
     ).toEqualGdScript(`
       @export var foo: String
+    `)
+  })
+
+  test('onready property', () => {
+    expect(
+      renderClassProperty({
+        kind: GDKind.ClassProperty,
+        name: 'foo',
+        type: 'String',
+        initial: null,
+        isExported: false,
+        isOnReady: true,
+      }),
+    ).toEqualGdScript(`
+      @onready var foo: String
     `)
   })
 
@@ -59,6 +77,7 @@ if (import.meta.vitest) {
         type: 'String',
         initial: { kind: GDKind.StringLiteral, value: 'baz' },
         isExported: false,
+        isOnReady: false,
       }),
     ).toEqualGdScript(`
       var foo: String = "baz"
