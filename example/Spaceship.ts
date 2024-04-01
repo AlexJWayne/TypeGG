@@ -2,7 +2,7 @@ const a: float = 1
 const b: int = a
 
 export class Spacehip extends Sprite2D {
-  @exports myProp: int = 123
+  @exports myProp: int | null = null
 
   myInts: int[] = [1, 2, 3]
   myNodes: Node[]

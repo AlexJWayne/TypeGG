@@ -6,7 +6,7 @@ extends Sprite2D
 signal onFoo
 signal onBar(bar: String, baz: int)
 
-@export var myProp: int = 123
+@export var myProp: int = null
 var myInts: Array[int] = [1, 2, 3]
 var myNodes: Array[Node]
 var myNodes2: Array[Node]
